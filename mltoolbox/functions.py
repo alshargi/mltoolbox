@@ -20,17 +20,17 @@ def save_file(xlist, xxpath):
     file1.close()
 
     
-def load_modality_Ngram4MaxLsvc_model(): 
+def load_modality_Ngram4MaxLsvc(): 
     model_mod = joblib.load("mltoolbox/modality_model.sav")
     return model_mod
 
 
-def load_countvectorizer_Ngram4MaxLsvc_model(): 
+def load_countvectorizer_Ngram4MaxLsvc(): 
     countvectorizer_mod = joblib.load("mltoolbox/modality_countvectorizer.sav")
     return countvectorizer_mod
 
 
-def load_fidftransformer_Ngram4MaxLsvc_model(): 
+def load_fidftransformer_Ngram4MaxLsvc(): 
     fidftransformer_mod = joblib.load("mltoolbox/modality_fidftransformer.sav")
     return fidftransformer_mod
 
