@@ -34,6 +34,12 @@ def load_fidftransformer_Ngram4MaxLsvc():
     return fidftransformer_mod
 
 
+def load_modelslonk(): 
+    modelx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_model.sav"
+    fidftransformerxx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_fidftransformer.sav"
+    countvectorizerx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_countvectorizer.sav"
+    return modelx, fidftransformerxx, countvectorizerx
+
     
 def read_json_originalText(fx):
     keepall = []
