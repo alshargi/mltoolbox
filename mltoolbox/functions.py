@@ -22,7 +22,7 @@ def load_Model_modalityNgram4MaxLsvc():
     vec_mod = joblib.load("models/modality_ngram_4_max_lsvc/countvectorizer.sav")
     tfidf_transformer_mod= joblib.load("models/modality_ngram_4_max_lsvc/tfidftransformer.sav")
     print("Models , loaded ")
-  
+ 
 
 def read_json_originalText(fx):
     keepall = []
