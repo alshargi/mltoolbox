@@ -13,14 +13,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url='https://github.com/Muls/toolbox',
     project_urls = {
-        "Bug Tracker": "https://github.com/Muls/toolbox/issues"
+        "Bug Tracker": "https://github.com/alshargi/mltoolbox/issues"
     },
     license='MIT',
-    packages=['lextoolbox'],
+    packages=['mltoolbox'],
     install_requires=['requests'],
 )
-
-
-for i in range(100):
-    print("woow", i)
 
