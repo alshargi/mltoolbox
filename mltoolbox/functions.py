@@ -17,16 +17,10 @@ def save_file(xlist, xxpath):
     file1.close()
 
     
-def load_Model_modalityNgram4MaxLsvc():        
-<<<<<<< Updated upstream
-    model_mod = joblib.load("models/modality_ngram_4_max_lsvc_model.sav")
-    vec_mod = joblib.load("models/modality_ngram_4_max_lsvc_countvectorizer.sav")
-    tfidf_transformer_mod= joblib.load("models/modality_ngram_4_max_lsvc_tfidftransformer.sav")
-=======
+def load_Model_modalityNgram4MaxLsvc():       
     model_mod = joblib.load("models/modality_ngram_4_max_lsvc/modality.sav")
     vec_mod = joblib.load("models/modality_ngram_4_max_lsvc/countvectorizer.sav")
     tfidf_transformer_mod= joblib.load("models/modality_ngram_4_max_lsvc/tfidftransformer.sav")
->>>>>>> Stashed changes
     print("Models , loaded ")
   
 
