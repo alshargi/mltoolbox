@@ -15,6 +15,13 @@ def save_file(xlist, xxpath):
 
 
 
-
+def read_json_originalText(fx):
+    keepall = []
+    f = open(fx,)
+    data = json.load(f)
+    for i in data:
+        keepall.append(i['originalText'])
+    f.close()
+    return keepall
 
 
