@@ -17,17 +17,20 @@ def save_file(xlist, xxpath):
     file1.close()
 
     
-
-
-def load_Model_modalityNgram4MaxLsvc():   
-    model_mod = joblib.load("mltoolbox/modality_model.sav")
-    #vec_mod = joblib.load("https://github.com/alshargi/mltoolbox/blob/5ab89f89bea1610e5cd14186fd09ede70752552b/mltoolbox/modality_countvectorizer.sav")
-    #tfidf_transformer_mod= joblib.load("https://github.com/alshargi/mltoolbox/blob/5ab89f89bea1610e5cd14186fd09ede70752552b/mltoolbox/modality_fidftransformer.sav")
-    print("Models , loaded ") 
-
-def load_Model_modalityNgram4MaxLsvc_model(): 
+def load_modality_Ngram4MaxLsvc_model(): 
     model_mod = joblib.load("mltoolbox/modality_model.sav")
     return model_mod
+
+
+def load_countvectorizer_Ngram4MaxLsvc_model(): 
+    countvectorizer_mod = joblib.load("mltoolbox/modality_countvectorizer.sav")
+    return countvectorizer_mod
+
+
+def load_fidftransformer_Ngram4MaxLsvc_model(): 
+    fidftransformer_mod = joblib.load("mltoolbox/modality_fidftransformer.sav")
+    return fidftransformer_mod
+
 
     
 def read_json_originalText(fx):
