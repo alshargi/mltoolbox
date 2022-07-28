@@ -4,7 +4,7 @@ Lextoolbox is a Python package that contains handy functions.
 
 
 ```bash
-pip install git+https:// add link
+pip install git+https://github.com/alshargi/mltoolbox.git
 ```
 
 ## Usage
@@ -15,6 +15,8 @@ Features:
 #### Demo of some of the features:
 ```python
  Add demo how to use
+ 
+ 
 ```
 
 ## Contributing
