@@ -11,7 +11,7 @@ setuptools.setup(
     description='Testing installation of Package',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/Muls/toolbox',
+    url='https://github.com/alshargi/mltoolbox',
     project_urls = {
         "Bug Tracker": "https://github.com/alshargi/mltoolbox/issues"
     },
@@ -19,4 +19,3 @@ setuptools.setup(
     packages=['mltoolbox'],
     install_requires=['requests'],
 )
-
