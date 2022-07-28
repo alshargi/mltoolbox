@@ -2,6 +2,6 @@
 # in stead of from ppack.functions import average
 
 
-from .functions import listChunker, report, weirdCase
+from .functions import save_file, count_now
 
 
