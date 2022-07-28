@@ -18,9 +18,9 @@ def save_file(xlist, xxpath):
 
     
 def load_Model_modalityNgram4MaxLsvc():   
-    model_mod = joblib.load("mltoolbox/mltoolbox/models/modality_ngram_4_max_lsvc/modality.sav")
-    vec_mod = joblib.load("mltoolbox/mltoolbox/models/modality_ngram_4_max_lsvc/countvectorizer.sav")
-    tfidf_transformer_mod= joblib.load("mltoolbox/mltoolbox/models/modality_ngram_4_max_lsvc/tfidftransformer.sav")
+    model_mod = joblib.load("mltoolbox/models/modality_ngram_4_max_lsvc/modality.sav")
+    vec_mod = joblib.load("mltoolbox/models/modality_ngram_4_max_lsvc/countvectorizer.sav")
+    tfidf_transformer_mod= joblib.load("mltoolbox/models/models/modality_ngram_4_max_lsvc/tfidftransformer.sav")
     print("Models , loaded ") 
 
 def read_json_originalText(fx):
