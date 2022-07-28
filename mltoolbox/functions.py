@@ -1,5 +1,8 @@
 from datetime import datetime
-  
+import joblib
+import json
+
+
 
 def count_now(xnum):  
     for i in range(xnum):
@@ -13,7 +16,13 @@ def save_file(xlist, xxpath):
         file1.writelines("{}\n".format(i))
     file1.close()
 
-
+    
+def load_Model_modalityNgram4MaxLsvc():        
+    model_mod = joblib.load("models/modality_ngram_4_max_lsvc_model.sav")
+    vec_mod = joblib.load("models/modality_ngram_4_max_lsvc_countvectorizer.sav")
+    tfidf_transformer_mod= joblib.load("models/modality_ngram_4_max_lsvc_tfidftransformer.sav")
+    print("Models , loaded ")
+  
 
 def read_json_originalText(fx):
     keepall = []
