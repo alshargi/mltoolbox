@@ -59,11 +59,9 @@ def load_fidftransformer_Ngram4MaxLsvc():
 
 
 
-def load_modelslenks(): 
-    modelx = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/modality.sav"
-    fidftransformerxx = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/tfidftransformer.sav"
-    countvectorizerx = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/countvectorizer.sav"
-    return modelx, fidftransformerxx, countvectorizerx
+def load_modality_model(): 
+    models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/modality.zip"
+    return models_link
 
 
 def read_csv_file_comma(fnme):
