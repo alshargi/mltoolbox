@@ -97,13 +97,21 @@ def load_model(xlinkmod):
     open('./modality_models.zip', 'wb').write(myfile.content)
     with ZipFile('./modality_models.zip', 'r') as zipObj:
        zipObj.extractall()
-       
-    if os.path.exists("./modality_models.zip"):
-        os.remove("./modality_models.zip")
+
  
     xloaded_model_mod = joblib.load('./modality_model.sav')
     xloaded_cvec_mod = joblib.load('./modality_countvectorizer.sav')
     xloaded_tfidf_transformer_mod= joblib.load('./modality_fidftransformer.sav')
+           
+    if os.path.exists("./modality_models.zip"):
+        os.remove("./modality_models.zip")
+    if os.path.exists("./modality_model.sav"):
+        os.remove("./modality_model.sav")      
+    if os.path.exists("./modality_fidftransformer.sav"):
+        os.remove("./modality_fidftransformer.sav")       
+    if os.path.exists("./modality_countvectorizer.sav"):
+        os.remove("./modality_countvectorizer.sav")
+     
     print("Models , loaded ")
     print("")
     return xloaded_model_mod, xloaded_cvec_mod, xloaded_tfidf_transformer_mod
