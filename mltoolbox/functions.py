@@ -42,7 +42,7 @@ def get_predected(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
         all_mod.append(xl_labels_mod[result_mod[0]])
     
     log("#" *30) 
-    log("# Entries: " + str(len(load_fileToPredect)))
+    log("# Entries: " + str(len(strings)))
     keepAll.append("{}\t{}".format("# Entries: ", len(strings)))
     log("") 
 
