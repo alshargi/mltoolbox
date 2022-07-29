@@ -34,13 +34,30 @@ def load_fidftransformer_Ngram4MaxLsvc():
     return fidftransformer_mod
 
 
-def load_modelslonk(): 
+def load_modelslenks(): 
     modelx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_model.sav"
     fidftransformerxx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_fidftransformer.sav"
     countvectorizerx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_countvectorizer.sav"
     return modelx, fidftransformerxx, countvectorizerx
 
-    
+
+def read_csv_file_comma(fnme):
+    keepall_row = []
+    with open(fnme) as from_LC:
+        csvReader_lc = csv.reader(from_LC, delimiter=',')
+        for row in csvReader_lc:
+            keepall_row.append("{}".format(row[0]))
+    return keepall_row
+
+def read_csv_file_tab(fnme):
+    keepall_row = []
+    with open(fnme) as from_LC:
+        csvReader_lc = csv.reader(from_LC, delimiter='\t')
+        for row in csvReader_lc:
+            keepall_row.append("{}".format(row[0]))
+    return keepall_row
+
+
 def read_json_originalText(fx):
     keepall = []
     f = open(fx,)
