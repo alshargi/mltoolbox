@@ -43,12 +43,12 @@ def get_predected(strings, model_mod, cvec_mod, tfidf_mod ):
     
     log("#" *30) 
     log("# Entries: " + str(len(load_fileToPredect)))
-    keepAll.append("{}\t{}".format("# Entries: ", len(load_fileToPredect)))
+    keepAll.append("{}\t{}".format("# Entries: ", len(strings)))
     log("") 
 
     log("Modality >> ")
     keepAll.append("Modality >> ")
-    keep_rep = CountFrequency_labeles(all_mod,len(load_fileToPredect) )
+    keep_rep = CountFrequency_labeles(all_mod,len(strings) )
     for ix in keep_rep:
         keepAll.append(ix)
         
