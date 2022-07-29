@@ -59,9 +59,9 @@ def load_fidftransformer_Ngram4MaxLsvc():
 
 
 def load_modelslenks(): 
-    modelx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_model.sav"
-    fidftransformerxx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_fidftransformer.sav"
-    countvectorizerx = "https://github.com/alshargi/mltoolbox/blob/6f89db2a82a132353d7fc9f2d6f1df9297477c9a/mltoolbox/modality_countvectorizer.sav"
+    modelx = "https://github.com/alshargi/mltoolbox/blob/main/mltoolbox/models/modality_ngram_4_max_lsvc/modality.sav"
+    fidftransformerxx = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/tfidftransformer.sav"
+    countvectorizerx = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/countvectorizer.sav"
     return modelx, fidftransformerxx, countvectorizerx
 
 
