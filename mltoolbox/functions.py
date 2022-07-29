@@ -24,6 +24,38 @@ def save_file(xlist, xxpath):
     file1.close()
     
   
+def labels_details(clas_name):
+    s_name = []
+    l_name = [] 
+    if clas_name == 'modality':
+        s_name = ['s', 'sw','w'] #entry
+        l_name = ['SpokenOnly', 'SpokenAndWritten','WrittenOnly']
+    #--------------------
+    # hindi CS
+    if clas_name == 'cs':
+        s_name = ['no', 'yes'] 
+        l_name = ['no-cs', 'yes-cs']
+    #--------------------
+    if clas_name == 'rank':
+        s_name = [1, 2, 3] 
+        l_name = ['Top', 'Medium','Low']
+    #--------------------
+    if clas_name == 'type':
+        s_name = ['ap', 'cn', 'cnt', 'cty', 'cu', 'dr', 'dt', 'dv', 'ed', 'fnm',
+           'hp', 'lnm', 'nm', 'np', 'pg', 'pn', 'prt', 'ps', 'rm', 'rt', 'sp',
+           'st', 'stn', 'stt', 'sv', 'tm', 'wg', 'yp']
+        l_name =  ['AlphaNumeric-GTD' , 'Cancel-Intent', 'Country-Catalog',
+                        'City-Catalog', 'Currency-GTD', 'Duration-GTD',
+                        'Date-GTD', 'DateInterval-GTD', 'EmailAddress-GTD', 
+                        'FirstName-Catalog', 'Help-Intent', 'LastName-Catalog' ,
+                        'Number-GTD', 'Nope-Intent', 'Percentage-GTD', 'PhoneNumber-GTD', 
+                        'Airport-Catalog', 'Pause-Intent', 'Resume-Intent', 'Repeat-Intent', 
+                        'Speed-GTD', 'Stop-Intent' , 'StreetName-Catalog', 'State-Catalog' ,
+                        'StartOver-Intent', 'Time-GTD', 'Weight-GTD','Yeppers-Intent']
+
+    return s_name, l_name
+    
+ 
 
 # load from github
 def load_model(xlinkmod):
