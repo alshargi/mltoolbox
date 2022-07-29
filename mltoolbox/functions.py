@@ -25,7 +25,7 @@ def load_modality_Ngram4MaxLsvc():
     return model_mod
 
 def load_countvectorizer_Ngram4MaxLsvc(): 
-    countvectorizer_mod = joblib.load("./mltoolbox/modality_countvectorizer.sav")
+    countvectorizer_mod = joblib.load("modality_countvectorizer.sav")
     return countvectorizer_mod
 
 
