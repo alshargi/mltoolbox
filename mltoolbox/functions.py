@@ -29,7 +29,7 @@ def get_predected(strings, model_mod, cvec_mod, tfidf_mod ):
     count_id = 0
     keepAll = []
     all_mod = []
-    for line in load_fileToPredect:
+    for line in strings:
         count_id += 1
         new_x = [line.strip()]
         
