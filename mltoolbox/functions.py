@@ -6,7 +6,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import LabelEncoder    
 from colorama import Fore
 from colorama import Style
-from datetime import datetime
+import requests
+from zipfile import ZipFile
+import os
 
 
 def count_now(xnum):  
@@ -21,7 +23,28 @@ def save_file(xlist, xxpath):
         file1.writelines("{}\n".format(i))
     file1.close()
     
-    
+  
+
+# load from github
+def load_model(xlinkmod):
+    myfile = requests.get(xlinkmod)
+    open('./modality_models.zip', 'wb').write(myfile.content)
+    with ZipFile('./modality_models.zip', 'r') as zipObj:
+       zipObj.extractall()
+       
+    if os.path.exists("./modality_models.zip"):
+        os.remove("./modality_models.zip")
+ 
+    xloaded_model_mod = joblib.load('./modality_model.sav')
+    xloaded_cvec_mod = joblib.load('./modality_countvectorizer.sav')
+    xloaded_tfidf_transformer_mod= joblib.load('./modality_fidftransformer.sav')
+    print("Models , loaded ")
+    print("")
+    return xloaded_model_mod, xloaded_cvec_mod, xloaded_tfidf_transformer_mod
+
+
+
+
 def log(string):
     now = str(datetime.now())
     print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
