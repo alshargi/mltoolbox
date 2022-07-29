@@ -18,7 +18,29 @@ def save_file(xlist, xxpath):
     for i in xlist:
         file1.writelines("{}\n".format(i))
     file1.close()
+    
+    
+def log(string):
+    now = str(datetime.now())
+    print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
 
+
+def CountFrequency_labeles(my_list): 
+    keep_result = []
+    freq = {}
+    for item in my_list:
+        if (item in freq):
+            freq[item] += 1
+        else:
+            freq[item] = 1
+ 
+    for key, value in freq.items():
+        perx = value / len(mainline_entries_from_input) * 100
+        log("{}%\t{:03d}\t\t{}".format(round(perx, 3), value,  key))
+        keep_result.append("{}%\t{:03d}\t\t{}".format(round(perx, 3), value, key ))
+    return keep_result
+        
+     
     
 def load_modality_Ngram4MaxLsvc(): 
     model_mod = joblib.load("mltoolbox/modality_model.sav")
