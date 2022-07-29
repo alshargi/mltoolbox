@@ -25,7 +25,7 @@ def save_file(xlist, xxpath):
     
  
 
-def get_predected(strings, model_mod, cvec_mod, tfidf_mod ): 
+def get_predected(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod): 
     count_id = 0
     keepAll = []
     all_mod = []
@@ -37,9 +37,9 @@ def get_predected(strings, model_mod, cvec_mod, tfidf_mod ):
         X_val_tfidf_mod = tfidf_mod.transform(x_val_vec_mod)
         result_mod = model_mod.predict(X_val_tfidf_mod)
         
-        log(str(count_id ) + '\t'  + l_labels_mod[result_mod[0]] +  '\t' + str(new_x[0]))
-        keepAll.append("{:03d}\t\t{}\t\t{}".format(count_id,  l_labels_mod[result_mod[0]], new_x[0]))
-        all_mod.append(l_labels_mod[result_mod[0]])
+        log(str(count_id ) + '\t'  + xl_labels_mod[result_mod[0]] +  '\t' + str(new_x[0]))
+        keepAll.append("{:03d}\t\t{}\t\t{}".format(count_id,  xl_labels_mod[result_mod[0]], new_x[0]))
+        all_mod.append(xl_labels_mod[result_mod[0]])
     
     log("#" *30) 
     log("# Entries: " + str(len(load_fileToPredect)))
