@@ -27,7 +27,7 @@ def log(string):
     print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
 
 
-def CountFrequency_labeles(my_list): 
+def CountFrequency_labeles(my_list, inputfile_siz): 
     keep_result = []
     freq = {}
     for item in my_list:
@@ -37,7 +37,7 @@ def CountFrequency_labeles(my_list):
             freq[item] = 1
  
     for key, value in freq.items():
-        perx = value / len(mainline_entries_from_input) * 100
+        perx = value / inputfile_siz * 100
         log("{}%\t{:03d}\t\t{}".format(round(perx, 3), value,  key))
         keep_result.append("{}%\t{:03d}\t\t{}".format(round(perx, 3), value, key ))
     return keep_result
