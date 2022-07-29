@@ -23,7 +23,41 @@ def save_file(xlist, xxpath):
         file1.writelines("{}\n".format(i))
     file1.close()
     
-  
+ 
+
+def get_predected(strings, model_mod, cvec_mod, tfidf_mod ): 
+    count_id = 0
+    keepAll = []
+    all_mod = []
+    for line in load_fileToPredect:
+        count_id += 1
+        new_x = [line.strip()]
+        
+        x_val_vec_mod = cvec_mod.transform(new_x)
+        X_val_tfidf_mod = tfidf_mod.transform(x_val_vec_mod)
+        result_mod = model_mod.predict(X_val_tfidf_mod)
+        
+        log(str(count_id ) + '\t'  + l_labels_mod[result_mod[0]] +  '\t' + str(new_x[0]))
+        keepAll.append("{:03d}\t\t{}\t\t{}".format(count_id,  l_labels_mod[result_mod[0]], new_x[0]))
+        all_mod.append(l_labels_mod[result_mod[0]])
+    
+    log("#" *30) 
+    log("# Entries: " + str(len(load_fileToPredect)))
+    keepAll.append("{}\t{}".format("# Entries: ", len(load_fileToPredect)))
+    log("") 
+
+    log("Modality >> ")
+    keepAll.append("Modality >> ")
+    keep_rep = CountFrequency_labeles(all_mod,len(load_fileToPredect) )
+    for ix in keep_rep:
+        keepAll.append(ix)
+        
+    keepAll.append("")     
+    log("#" *30)   
+    
+    return keepAll
+
+
 def labels_details(clas_name):
     s_name = []
     l_name = [] 
