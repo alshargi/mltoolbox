@@ -224,7 +224,7 @@ def show_wrong_prred(xX_test, labelstransform_y_test, xpredicted , xfull_names, 
     log(str(len(correct_predict)) + "  Correct predict Entries " )
     print_to_filex.append("")
     print_to_filex.append("-------------------------------------")
-    print_to_filex.append("{}\t{}".format(len(predicted), " All predict Entries" ))
+    print_to_filex.append("{}\t{}".format(len(xpredicted), " All predict Entries" ))
     print_to_filex.append("{}\t{}".format(len(wrong_predict), " Wrong predict Entries"))
     print_to_filex.append("{}\t{}".format(len(correct_predict), " Correct predict Entries"))
     print_to_filex.append("")
