@@ -65,13 +65,13 @@ def Modality_labels_details():
     return s_name, l_name 
 
 #--------------------
-def codeSwitch_labels_details():
+def CodeSwitch_labels_details():
       s_name = ['no', 'yes'] 
       l_name = ['no-cs', 'yes-cs']
       return s_name, l_name 
   
 #--------------------  
-def types_labels_details():   
+def Types_labels_details():   
         s_name = ['ap', 'cn', 'cnt', 'cty', 'cu', 'dr', 'dt', 'dv', 'ed', 'fnm',
            'hp', 'lnm', 'nm', 'np', 'pg', 'pn', 'prt', 'ps', 'rm', 'rt', 'sp',
            'st', 'stn', 'stt', 'sv', 'tm', 'wg', 'yp']
