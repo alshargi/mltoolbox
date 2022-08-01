@@ -143,18 +143,18 @@ def CountFrequency_labeles(my_list, inputfile_siz):
         
      
     
-def load_modality_Ngram4MaxLsvc(): 
-    model_mod = joblib.load("mltoolbox/modality_model.sav")
-    return model_mod
+#def load_modality_Ngram4MaxLsvc(): 
+#    model_mod = joblib.load("mltoolbox/modality_model.sav")
+#    return model_mod
 
-def load_countvectorizer_Ngram4MaxLsvc(): 
-    countvectorizer_mod = joblib.load("modality_countvectorizer.sav")
-    return countvectorizer_mod
+#def load_countvectorizer_Ngram4MaxLsvc(): 
+#    countvectorizer_mod = joblib.load("modality_countvectorizer.sav")
+#    return countvectorizer_mod
 
 
-def load_fidftransformer_Ngram4MaxLsvc(): 
-    fidftransformer_mod = joblib.load("mltoolbox/modality_fidftransformer.sav")
-    return fidftransformer_mod
+#def load_fidftransformer_Ngram4MaxLsvc(): 
+#    fidftransformer_mod = joblib.load("mltoolbox/modality_fidftransformer.sav")
+#    return fidftransformer_mod
 
 
 
