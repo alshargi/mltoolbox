@@ -25,7 +25,7 @@ def save_file(xlist, xxpath):
     
  
 
-def get_predected(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod): 
+def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod): 
     count_id = 0
     keepAll = []
     all_mod = []
