@@ -58,23 +58,20 @@ def get_predected(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
     return keepAll
 
 
-def labels_details(clas_name):
-    s_name = []
-    l_name = [] 
-    if clas_name == 'modality':
-        s_name = ['s', 'sw','w'] #entry
-        l_name = ['SpokenOnly', 'SpokenAndWritten','WrittenOnly']
-    #--------------------
-    # hindi CS
-    if clas_name == 'cs':
-        s_name = ['no', 'yes'] 
-        l_name = ['no-cs', 'yes-cs']
-    #--------------------
-    if clas_name == 'rank':
-        s_name = [1, 2, 3] 
-        l_name = ['Top', 'Medium','Low']
-    #--------------------
-    if clas_name == 'type':
+#--------------------
+def Modality_labels_details():
+    s_name= ['s', 'sw','w']
+    l_name = ['SpokenOnly', 'SpokenAndWritten','WrittenOnly']
+    return s_name, l_name 
+
+#--------------------
+def codeSwitch_labels_details():
+      s_name = ['no', 'yes'] 
+      l_name = ['no-cs', 'yes-cs']
+      return s_name, l_name 
+  
+#--------------------  
+def types_labels_details():   
         s_name = ['ap', 'cn', 'cnt', 'cty', 'cu', 'dr', 'dt', 'dv', 'ed', 'fnm',
            'hp', 'lnm', 'nm', 'np', 'pg', 'pn', 'prt', 'ps', 'rm', 'rt', 'sp',
            'st', 'stn', 'stt', 'sv', 'tm', 'wg', 'yp']
@@ -86,9 +83,14 @@ def labels_details(clas_name):
                         'Airport-Catalog', 'Pause-Intent', 'Resume-Intent', 'Repeat-Intent', 
                         'Speed-GTD', 'Stop-Intent' , 'StreetName-Catalog', 'State-Catalog' ,
                         'StartOver-Intent', 'Time-GTD', 'Weight-GTD','Yeppers-Intent']
+        return s_name, l_name 
 
+#--------------------  
+def Ranks_labels_details():
+    s_name = [1, 2, 3] 
+    l_name = ['Top', 'Medium','Low']
     return s_name, l_name
-    
+ 
  
 
 # load from github
