@@ -84,7 +84,7 @@ def show_report(xsplit_test_percentage,xsizetest, xsiztrain, xsizalldata, xlabel
     print_to_file.append(pd_senrtv)
     return print_to_file
 
-def chart_data(xhart_path, xdf_all_dataset, xdf_train_only, xdf_test_only, xfull_names):
+def chart_data(xhart_path, xdf_all_dataset, xdf_train_only, xdf_test_only, xfull_names, cf_matrix_3x3x):
     with PdfPages(xhart_path) as export_pdf:
         fig = plt.figure(figsize=(8,6))  
 
@@ -110,7 +110,7 @@ def chart_data(xhart_path, xdf_all_dataset, xdf_train_only, xdf_test_only, xfull
         export_pdf.savefig()
         plt.close()
             
-        make_confusion_matrix(cf_matrix_3x3, 
+        make_confusion_matrix(cf_matrix_3x3x, 
                                   categories=xfull_names,
                                   figsize=(8,6), 
                                   cbar=False,
