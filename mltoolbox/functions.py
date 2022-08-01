@@ -9,7 +9,7 @@ from colorama import Style
 import requests
 from zipfile import ZipFile
 import os
-
+import csv
 
 def count_now(xnum):  
     for i in range(xnum):
