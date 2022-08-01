@@ -72,7 +72,7 @@ def show_report(xsplit_test_percentage,xsizetest, xsiztrain, xsizalldata, xlabel
     print_to_file.append("classification report:")
     print_to_file.append(xclas_rep)
     print_to_file.append("")
-    print_to_file.append("{}\t{}".format("Average accuracy on test set ", Average_accuracy_on_test))
+    print_to_file.append("{}\t{}".format("Average accuracy on test set ", xAverage_accuracy_on_test))
     print_to_file.append("")
     
     
