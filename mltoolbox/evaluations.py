@@ -133,7 +133,7 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
        
     res = []
-    for l in range(0, len(label_like_the_file)):
+    for l in range(0, len(s_labels_mod)):
         prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
                                                           np.array(y_pred)==l,
                                                           pos_label=True,average=None)
