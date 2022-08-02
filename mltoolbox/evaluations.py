@@ -28,12 +28,17 @@ from imblearn.over_sampling import SMOTE
 import joblib
 
 
-
+def save_file(xlist, xxpath):
+    file1 = open(xxpath,"w")
+    for i in xlist:
+        file1.writelines("{}\n".format(i))
+    file1.close()
+    
+    
 def log(string):
     now = str(datetime.now())
     print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
 
-    import joblib
 
 def save_model(xcalibrated_svc,  xcount_vect, xtf_transformer, xunq_name, xpath, xfoldename):
     try:
