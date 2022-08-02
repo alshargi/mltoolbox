@@ -170,8 +170,8 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     #print(counter_aftr)
     for k,v in counter_aftr.items():
         per = v / len(y_train_lables_trf_syn) * 100
-        log('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
-        prntaftr.append('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        log('Class=%s, n=%d (%.3f%%)' % (s_labels_mod[k], v, per))
+        prntaftr.append('Class=%s, n=%d (%.3f%%)' % (s_labels_mod[k], v, per))
         
     print_to_file.append("")
     print_to_file.append("Training file after synthatic" )
