@@ -58,7 +58,195 @@ def save_model(xcalibrated_svc,  xcount_vect, xtf_transformer, xunq_name, xpath,
     except:
         print("Error")
    
+     
+def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
+    balance_type = "Synthatic"
+    print_to_file = []
+    log("Balance: " + str(balance_type))
+    log("We will use SMOTE to balance the training file ")
+    print_to_file.append("Balance: " + str(balance_type))
+    print_to_file.append("We will use SMOTE to balance the training file ")
+    print_to_file.append("") 
+    
+    names = ['entry', 'label']
+    df_all_dataset = shuffle(pd.read_csv(Training_file,  delimiter=delimiter, names=names))
+    X_train, X_test, y_train, y_test = train_test_split( df_all_dataset['entry'],  df_all_dataset['label'], random_state=0, test_size= split_test_percentage) 
+    log("Balance: " + str(balance_type))
+    log("We will use synthatec SMOTE")
+    
+    
+    
+    smote = SMOTE(random_state = 10)
+    #smote = SMOTE("minority")
+
+    df_test_only = pd.DataFrame({'entry': X_test, 'label': y_test})
+    # Train only Dataset
+    df_train_only = pd.DataFrame({'entry': X_train, 'label': y_train})  
+    
+    count_vect = CountVectorizer(ngram_range= ngram_range,  lowercase=False, analyzer=analyzer_type)      
+
+    #train transform
+    X_train_counts = count_vect.fit_transform(X_train)
+    tf_transformer = TfidfTransformer().fit(X_train_counts)
+    X_train_transformed = tf_transformer.transform(X_train_counts)
         
+    # test transform
+    X_test_counts = count_vect.transform(X_test)
+    X_test_transformed = tf_transformer.transform(X_test_counts)
+        
+    labels = LabelEncoder()     
+    y_train_labels_fit = labels.fit(y_train)
+    y_train_lables_trf = labels.transform(y_train)
+        
+        
+    #####
+    print(df_all_dataset.head())  
+    log("Running , Please wait ...") 
+    
+    # check mislabeled
+    print_to_file.append("")
+    log(" Check Mislabeled entry")
+    print_to_file += check_mislabeled(df_all_dataset["label"], s_labels_mod )
+ 
+    X_train_transformed_syn, y_train_lables_trf_syn = smote.fit_resample(X_train_transformed, y_train_lables_trf)
+    # create the Model with syn data
+    clf = Model_used.fit(X_train_transformed_syn,y_train_lables_trf_syn)# 
+    calibrated_svc = CalibratedClassifierCV(base_estimator=clf,cv="prefit")    
+    calibrated_svc.fit(X_train_transformed_syn,y_train_lables_trf_syn)
+         
+    predicted = calibrated_svc.predict(X_test_transformed)
+    Average_accuracy_on_test= np.mean(predicted == labels.transform(y_test))
+
+    
+
+    # Print the confusion matrix
+    y_true = labels.transform(y_test) 
+    y_pred = predicted 
+        
+    cf_matrix_3x3 = confusion_matrix(y_true, y_pred)
+        
+    # Print the precision and recall, among other metrics
+    clas_rep = classification_report(y_true, y_pred, digits=3, target_names= full_names)
+
+    ########### sensitivity','specificity'
+    #Sensitivity, also known as the true positive rate (TPR), is the same as recall. Hence, it measures the proportion of positive class that is correctly predicted as positive.
+    #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
+       
+    res = []
+    for l in range(0, len(label_like_the_file)):
+        prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
+                                                          np.array(y_pred)==l,
+                                                          pos_label=True,average=None)
+        res.append([full_names[l],recall[0],recall[1]])
+        
+  # print info
+    prnt_bfor = []   
+    prntaftr = []
+        
+    #############
+    #from collections import Counter
+    counter_bfr = Counter(y_train_lables_trf) 
+        #print(counter_bfr)
+
+    log("")
+    log("Training file before synthatic: ")        
+    counter_bfr =   Counter(y_train_lables_trf)
+        
+    for k,v in counter_bfr.items():
+        per = v / len(y_train_lables_trf) * 100
+        log('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        prnt_bfor.append('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        
+    print_to_file.append("Training file before synthatic: "  )
+    log("----------------------")        
+    log("") 
+    print_to_file.append("")
+    print_to_file += prnt_bfor
+    print_to_file.append("")
+    ########### 
+    log("")
+    log("Training file after synthatic: ")        
+    counter_aftr =   Counter(y_train_lables_trf_syn)
+    #print(counter_aftr)
+    for k,v in counter_aftr.items():
+        per = v / len(y_train_lables_trf_syn) * 100
+        log('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        prntaftr.append('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        
+    print_to_file.append("")
+    print_to_file.append("Training file after synthatic" )
+    log("----------------------")        
+    log("") 
+    print_to_file += prntaftr
+    print_to_file.append("")
+
+    ###################### plot data and confusion matrix  
+    chart_path = output_path + "_" + uniq_model_name + "_" + "_ngram"  + "_" +  str(balance_type) +  "_charts.pdf"
+       
+    with PdfPages(chart_path) as export_pdf:
+        fig = pyplot.figure(figsize=(8,6))                  
+        plt.bar(counter_bfr.keys(), counter_bfr.values())
+        plt.title('Training before synthatic')
+        plt.grid(True)
+        export_pdf.savefig()
+        plt.close()
+        plt.bar(counter_aftr.keys(), counter_aftr.values())
+        plt.title('Training after synthatic')
+        plt.grid(True)
+        export_pdf.savefig()
+        plt.close()
+        
+        make_confusion_matrix(cf_matrix_3x3, 
+                                      categories=full_names,
+                                      figsize=(8,6), 
+                                      cbar=False,
+                                      title="Confusion_matrix - with synthatic data")
+        plt.grid(True)
+        export_pdf.savefig()
+        plt.close()
+       
+     
+    print_to_file.append(" ")
+    print_to_file.append("------------------------------- ")
+    print_to_file += show_report(split_test_percentage,
+                            len(df_test_only),
+                            len(df_train_only),
+                            len(df_all_dataset),
+                            labels.classes_,
+                            analyzer_type,
+                            ngram_range,
+                            Model_used ,
+                            cf_matrix_3x3,
+                            Average_accuracy_on_test, clas_rep,
+                            pd.DataFrame(res,columns = ['class','sensitivity','specificity']))
+              
+
+    print_to_file.append("") 
+     #################################################### 
+     # check wrong predictions  
+    log("wrong predicted list in the result file")
+    print_to_file.append("")
+    print_to_file += show_wrong_prred(X_test, labels.transform(y_test), predicted , full_names, label_like_the_file)
+       
+            
+    save_file( print_to_file, output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_eval_report.txt" )                 
+    log("Report (pdf charts) and text saved in this path " + str(output_path)  )
+    log("--------------------------------")
+    log("")
+    
+    if savemodel.lower() == "yes": 
+        un_name =  uniq_model_name + "_ngram_" +  str(balance_type) 
+        ffolder = output_path + un_name + "_model"
+        isdir = os.path.isdir(ffolder) 
+        #print(isdir) 
+        if isdir == False:
+            os.mkdir(ffolder) 
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+        else:
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+
+            
+            
 def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
     balance_type = "Max"
     rep_print = []
