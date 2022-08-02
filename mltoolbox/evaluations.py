@@ -54,7 +54,7 @@ def save_model(xcalibrated_svc,  xcount_vect, xtf_transformer, xunq_name, xpath,
         print("Error")
    
         
-def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path, savemodel ):    
+def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
     balance_type = "Max"
     rep_print = []
     names = ['entry', 'label']
