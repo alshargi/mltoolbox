@@ -33,6 +33,33 @@ def log(string):
     now = str(datetime.now())
     print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
 
+ 
+
+def check_mislabeled(xdf_all_dataset, slabel):
+    print_to_filex = []
+    stat_miss = 1
+    print_to_filex.append("------------------------------- ")
+    mislabeled_yes =[]
+    mislabeled_yes.append("###################### mislabeled Entries")
+    for i in  xdf_all_dataset:
+        if i not in slabel:
+            log( "mislabeled >>" +  str(i))
+            mislabeled_yes.append(i)
+            stat_miss = 0
+    if stat_miss == 0:
+        log("The data include mislabeled, please check and fix. ")
+        print_to_filex.append("###### The data include mislabeled, please check and fix. ")
+        print_to_filex.append(mislabeled_yes)
+        print_to_filex.append("-------------------------")
+                      
+    else:
+        log("NO mislabeled, PASS")
+        print_to_filex.append("NO mislabeled, PASS")
+        print_to_filex.append("-------------------------")
+    
+    print_to_filex.append("")
+    return print_to_filex
+
     
 def show_report(xsplit_test_percentage,xsizetest, xsiztrain, xsizalldata, xlabelsclass,xanalyzer_type,xngram_range,xModel_used ,xcf_matrix_3x3,xAverage_accuracy_on_test, xclas_rep, pd_senrtv):
     print_to_file = []
