@@ -16,10 +16,6 @@ Features:
 ```python
 # -*- coding: utf-8 -*-
 
-# pip install git+https://github.com/alshargi/mltoolbox.git
-
-
-
 
 
 from mltoolbox import read_json_originalText, log, save_file
@@ -42,28 +38,36 @@ print("full name",full_name)
 loaded_model_mod,  loaded_cvec_mod , loaded_tfidf_transformer_mod =  load_model(load_modality_model())
 
 
-# from file
-load_fileToPredect = read_json_originalText(file_input)
-
-
-#load_fileToPredect = ['عام ألفين وثلاثة وعشرين', 'هذي السنة', 'عام 2023' ]
-          
-#
-log('Json file loaded ' + str( len(load_fileToPredect)) +  ' Entries')
+load_fileToPredect = ['عام ألفين وثلاثة وعشرين', 'هذي السنة', 'عام 2023' ]
 
 keepAllresult = get_predict(load_fileToPredect, loaded_model_mod, 
                        loaded_cvec_mod ,
                        loaded_tfidf_transformer_mod , 
                        full_name)
 
-
-
 # save result
 save_file(keepAllresult , file_output)
 log("Saved" + str(file_output) )
 log("#" *30)
 
- 
+>>>>
+short name ['s', 'sw', 'w']
+full name ['SpokenOnly', 'SpokenAndWritten', 'WrittenOnly']
+Models , loaded 
+
+2022-08-02 13:51:01.778928 1	WrittenOnly	عام ألفين وثلاثة وعشرين
+2022-08-02 13:51:01.779970 2	WrittenOnly	هذي السنة
+2022-08-02 13:51:01.781017 3	WrittenOnly	عام 2023
+2022-08-02 13:51:01.781057 ##############################
+2022-08-02 13:51:01.781067 # Entries: 3
+2022-08-02 13:51:01.781075 
+2022-08-02 13:51:01.781084 Modality >> 
+2022-08-02 13:51:01.781100 100.0%	003		WrittenOnly
+2022-08-02 13:51:01.781110 ##############################
+2022-08-02 13:51:01.781565 Saved./result.txt
+2022-08-02 13:51:01.781588 ##############################
+
+
  
 ```
 
