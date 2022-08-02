@@ -58,6 +58,7 @@ def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
     return keepAll
 
 
+
 #--------------------
 def Modality_labels_details():
     s_name= ['s', 'sw','w']
