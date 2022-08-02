@@ -154,8 +154,8 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
         
     for k,v in counter_bfr.items():
         per = v / len(y_train_lables_trf) * 100
-        log('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
-        prnt_bfor.append('Class=%s, n=%d (%.3f%%)' % (label_like_the_file[k], v, per))
+        log('Class=%s, n=%d (%.3f%%)' % (s_labels_mod[k], v, per))
+        prnt_bfor.append('Class=%s, n=%d (%.3f%%)' % (s_labels_mod[k], v, per))
         
     print_to_file.append("Training file before synthatic: "  )
     log("----------------------")        
@@ -226,7 +226,7 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
      # check wrong predictions  
     log("wrong predicted list in the result file")
     print_to_file.append("")
-    print_to_file += show_wrong_prred(X_test, labels.transform(y_test), predicted , full_names, label_like_the_file)
+    print_to_file += show_wrong_prred(X_test, labels.transform(y_test), predicted , full_names, s_labels_mod)
        
             
     save_file( print_to_file, output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_eval_report.txt" )                 
