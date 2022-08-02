@@ -33,7 +33,148 @@ def log(string):
     now = str(datetime.now())
     print(Fore.BLUE + now + ' ' + Style.RESET_ALL + string)
 
+    import joblib
+
+def save_model(xcalibrated_svc,  xcount_vect, xtf_transformer, xunq_name, xpath, xfoldename):
+    try:
+        mod_name = xfoldename + "/" +  xunq_name + "_model.sav"
+        vec_modname = xfoldename + "/" +  xunq_name + "_countvectorizer.sav" 
+        tfidf_modname = xfoldename + "/" +  xunq_name + "_tfidftransformer.sav"
+            
+            #filename = 'Type_model_gci_v1.sav'
+        joblib.dump(xcalibrated_svc, mod_name)
+            
+        #filename = 'Type_countvectorizer_gci_v1.sav'
+        joblib.dump(xcount_vect, vec_modname)
+        
+        #filename = 'Type_tfidftransformer_gci_v1.sav'
+        joblib.dump(xtf_transformer, tfidf_modname)
+        log("Model saved")
+    except:
+        print("Error")
+   
+        
+
+def Create_model_max(split_test_percentage, delimiter, s_labels_mod, savemodel ):    
+    balance_type = "Max"
+    rep_print = []
+    names = ['entry', 'label']
+    df_all_dataset = shuffle(pd.read_csv(Training_file,  delimiter=delimiter, names=names))
+    X_train, X_test, y_train, y_test = train_test_split( df_all_dataset['entry'],  df_all_dataset['label'], random_state=0, test_size= split_test_percentage) 
+    log("Balance: " + str(balance_type))
+    log("We will use all the imbalance train file")
+    
+    # check check mislabeled
+    rep_print.append("")
+    log(" Check Mislabeled entry")
+    rep_print += check_mislabeled(df_all_dataset["label"], s_labels_mod )
  
+    # Test only Dataset
+    df_test_only = pd.DataFrame({'entry': X_test, 'label': y_test})
+    # Train only Dataset
+    df_train_only = pd.DataFrame({'entry': X_train, 'label': y_train})  
+    count_vect = CountVectorizer(ngram_range= ngram_range,  lowercase=False, analyzer=analyzer_type)      
+    
+    #train transform
+    X_train_counts = count_vect.fit_transform(X_train)
+    tf_transformer = TfidfTransformer().fit(X_train_counts)
+    X_train_transformed = tf_transformer.transform(X_train_counts)
+    
+    # test transform
+    X_test_counts = count_vect.transform(X_test)
+    X_test_transformed = tf_transformer.transform(X_test_counts)
+    
+    labels = LabelEncoder()
+    
+    y_train_labels_fit = labels.fit(y_train)
+    y_train_lables_trf = labels.transform(y_train)
+    
+    log(">> Training file - loaded" + str(len(df_all_dataset)) + ' Entries')
+    log("")
+    
+    clf = Model_used.fit(X_train_transformed,y_train_lables_trf)#
+         
+    calibrated_svc = CalibratedClassifierCV(base_estimator=clf,cv="prefit") 
+    calibrated_svc.fit(X_train_transformed,y_train_lables_trf)
+          
+    predicted = calibrated_svc.predict(X_test_transformed)
+    Average_accuracy_on_test= np.mean(predicted == labels.transform(y_test))
+
+    ## print and plot
+    y_true = labels.transform(y_test) 
+    y_pred = predicted 
+         
+    # Print the confusion matrix
+    cf_matrix_3x3 = confusion_matrix(y_true, y_pred)
+         
+    # Print the precision and recall, among other metrics
+    clas_rep = classification_report(y_true, y_pred, digits=3, target_names= full_names)
+
+
+    ########### sensitivity','specificity'
+    #Sensitivity, also known as the true positive rate (TPR), is the same as recall. Hence, it measures the proportion of positive class that is correctly predicted as positive.
+    #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
+   
+    res = []
+    for l in range(0, len(s_labels_mod)):
+        prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
+                                                      np.array(y_pred)==l,
+                                                      pos_label=True,average=None)
+        res.append([full_names[l],recall[0],recall[1]])
+
+    # print info
+   
+    rep_print += show_report(split_test_percentage,
+                   len(df_test_only),
+                   len(df_train_only),
+                   len(df_all_dataset),
+                   labels.classes_,
+                   analyzer_type,
+                   ngram_range,
+                   Model_used ,
+                   cf_matrix_3x3,
+                   Average_accuracy_on_test, clas_rep, 
+                   pd.DataFrame(res,columns = ['class','sensitivity','specificity']))
+
+
+
+
+    ###################### plot data and confusion matrix  
+    chart_path = output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_charts.pdf"
+    chart_data(chart_path, df_all_dataset, df_train_only, df_test_only, full_names, cf_matrix_3x3)
+    
+    #from yellowbrick.classifier import class_prediction_error   
+    #visualizer = class_prediction_error(calibrated_svc, 
+    #                            X_train_transformed,y_train_lables_trf, 
+    #                            classes=full_names)
+    #visualizer.show()
+
+    
+   #################################################### 
+    # check wrong predictions
+    rep_print += show_wrong_prred(X_test, labels.transform(y_test), 
+                     predicted , full_names, s_labels_mod)
+
+
+
+    rep_print.append("")  
+    save_file(rep_print, output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_eval_report.txt" )                 
+    log("Report (pdf charts) and text saved in this path " + str(output_path)  )
+    log("--------------------------------")
+    log("")
+    
+    if savemodel.lower() == "yes": 
+        un_name =  uniq_model_name + "_ngram_" +  str(balance_type) 
+        ffolder = output_path + un_name + "_model"
+        isdir = os.path.isdir(ffolder) 
+        #print(isdir) 
+        if isdir == False:
+            os.mkdir(ffolder) 
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+        else:
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+
+   
 
 def check_mislabeled(xdf_all_dataset, slabel):
     print_to_filex = []
