@@ -10,9 +10,9 @@ def load_txt_file(p):
     return klist
 
   
-def check_duplication(welo_entry):
+def check_duplication(welo_entry,  xkeepall_welo):
   xres = 0
-  for x in keepall_welo:
+  for x in xkeepall_welo:
     if welo_entry.strip() == x.strip():
       xres += 1
   return xres
@@ -84,7 +84,7 @@ def check_GTD_for_CR(file_from_vendor):
     ccd = 0
     st2 = 0
     for y in keepall_welo:
-      check_res = check_duplication(y)
+      check_res = check_duplication(y, keepall_welo)   
       ccd += 1
       if check_res > 1:
             if y not in keepunientry:
