@@ -20,8 +20,8 @@ def check_duplication(welo_entry):
 
 def check_GTD_for_CR(file_from_vendor):
     printtofile = []
-    keepall_file_inlist = load_txt_file(file_from_vendor)
-    keepall_welo = keepall_file_inlist
+    keepall_welo = []
+    keepall_welo = load_txt_file(file_from_vendor)
 
     log("File Name: " + str(file_from_vendor))
     printtofile.append("File Name: " + str( file_from_vendor)) 
