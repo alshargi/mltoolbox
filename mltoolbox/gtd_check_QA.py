@@ -1,5 +1,6 @@
 
 
+from .functions import log
 
 
 def load_txt_file(p):
