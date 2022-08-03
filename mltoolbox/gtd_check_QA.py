@@ -40,7 +40,7 @@ def check_GTD_for_CR(file_from_vendor):
     for p in alllength:
         if p >= 11:
             greatellf += 1
-    prlogint('length>=  ' + str(11) + ' words \t\t' + str(greatellf) + '\t' + 'Entries')
+    log('length>=  ' + str(11) + ' words \t\t' + str(greatellf) + '\t' + 'Entries')
     printtofile.append('length>=  ' + str(11) + ' words \t\t' + str(greatellf) + '\t' + 'Entries')
     log("")
     printtofile.append("")
