@@ -1,7 +1,7 @@
 
 
 from .functions import log
-
+import re
 
 def load_txt_file(p):
     klist = []
