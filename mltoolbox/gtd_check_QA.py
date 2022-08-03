@@ -76,7 +76,7 @@ def check_GTD_for_CR(file_from_vendor):
     
     ######-------------------------- Check duplicate entries
     log("")
-    print("#######--------- Duplicate Entries ")
+    log("#######--------- Duplicate Entries ")
     printtofile.append("")
     printtofile.append("#######--------- Duplicate Entries ")
     
