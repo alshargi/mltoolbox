@@ -90,7 +90,7 @@ def check_GTD_for_CR(file_from_vendor):
             if y not in keepunientry:
                 st2 += 1
                 keepunientry.append(y)
-                log(str(check_res) + ' times', "in Row# " + str(ccd)+'\t', "Entry: " + y)
+                log(str(check_res) + ' times' +  " in Row# " + str(ccd)+ '\t' +  " Entry: " + str(y))
                 printtofile.append("{}\t{}\t{}".format(str(check_res) + ' times', "in Row# " + str(ccd)+'\t', "Entry: " + y))
     
     if st2 == 0:
