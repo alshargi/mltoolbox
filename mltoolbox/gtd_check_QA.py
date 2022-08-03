@@ -10,7 +10,14 @@ def load_txt_file(p):
     return klist
 
   
-  
+def check_duplication(welo_entry):
+  xres = 0
+  for x in keepall_welo:
+    if welo_entry.strip() == x.strip():
+      xres += 1
+  return xres
+
+
 def check_GTD_for_CR(file_from_vendor):
     printtofile = []
     keepall_file_inlist = load_txt_file(file_from_vendor)
