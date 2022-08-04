@@ -247,6 +247,197 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
             save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
 
             
+
+def buld_new_trainfile(xxlabel, df_all_datasetx_entry,  df_all_datasetx_label, split_byx):
+    cnow = 0
+    entry_balance_data = []
+    label_balance_data = []
+    for x, z in zip(df_all_datasetx_entry,df_all_datasetx_label):
+        if xxlabel == z:       
+            if cnow < split_byx:
+                #print(x + "\t" +z)
+                entry_balance_data.append(x)
+                label_balance_data.append(z)
+                cnow += 1           
+    return entry_balance_data, label_balance_data
+        
+
+
+
+def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
+    rep_print_min = []
+    log("Balance: " + str(balance_type))
+    log("We will use the minimum class count to balance the training file ")   
+    
+    names = ['entry', 'label']
+    df_all_dataset = shuffle(pd.read_csv(Training_file,  delimiter=delimiter, names=names))
+    X_train, X_test, y_train, y_test = train_test_split( df_all_dataset['entry'],  df_all_dataset['label'], random_state=0, test_size= split_test_percentage) 
+    log("Balance: " + str(balance_type))
+    log("We will use synthatec SMOTE")
+    rep_print_min.append("Balance: " + str(balance_type))
+    rep_print_min.append("We will use the minimum class count to balance the training file ")
+    rep_print_min.append("")
+    
+    # find the min class
+    min_class_siz = df_all_dataset.groupby('label').count()
+    fmin_c =  min_class_siz.min()[0]
+    log("Minimum class # = " + str(fmin_c))
+    rep_print_min.append("Minimum class # = " + str(fmin_c))
+    split_by = int(min_class_siz.min()[0])
+    
+    #sys.exit()
+    all_entry_min = []
+    all_labels_min = []
+    for i in s_labels_mod:
+        xentry, xlabels = buld_new_trainfile(i, df_all_dataset['entry'],  df_all_dataset['label'], split_by, )
+        all_entry_min += xentry
+        all_labels_min += xlabels
+        
+    #build new df 
+    balance_list = pd.DataFrame(
+        {'entry': all_entry_min,
+         'label': all_labels_min
+        })
+    
+    balance_alldata = shuffle(shuffle(balance_list)) # 3 x
+    balance_list = []  # remove for memory
+    
+    print(balance_alldata.head())
+    df_all_dataset = balance_alldata
+    
+    #sys.exit()
+    
+    #####  check_mislabeled
+    #log("") 
+    #print_to_file.append("")
+    #print_to_file += check_mislabeled(df_all_dataset["label"], s_labels_mod)
+
+     #sublinear_df is set to True to use a logarithmic form for frequency.
+      # min_df is the minimum numbers of documents a word must be present in to be kept.
+     # norm is set to l2, to ensure all our feature vectors have a euclidian norm of 1.
+    # ngram_range is set to (1, 2) to indicate that we want to consider both unigrams and bigrams.
+      # stop_words is set to "english" to remove all common pronouns ("a", "the", ...) to reduce the number of noisy features.
+    
+
+
+    # split Data 
+    X_train, X_test, y_train, y_test = train_test_split( df_all_dataset['entry'],  df_all_dataset['label'], random_state=0, test_size= split_test_percentage)
+    
+    # Test only Dataset
+    df_test_only = pd.DataFrame({'entry': X_test, 'label': y_test})
+    # Train only Dataset
+    df_train_only = pd.DataFrame({'entry': X_train, 'label': y_train})
+    
+    #vectorize
+    count_vect = CountVectorizer(ngram_range= ngram_range,  lowercase=False, analyzer=analyzer_type)      
+
+    #count_vect = TfidfVectorizer(sublinear_tf=True, min_df=1, norm='l2', encoding='latin-1', ngram_range=(1, 7))
+
+    #train transform
+    X_train_counts = count_vect.fit_transform(X_train)
+    tf_transformer = TfidfTransformer().fit(X_train_counts)
+    X_train_transformed = tf_transformer.transform(X_train_counts)
+    
+    # test transform
+    X_test_counts = count_vect.transform(X_test)
+    X_test_transformed = tf_transformer.transform(X_test_counts)
+    
+    labels = LabelEncoder()
+    
+    y_train_labels_fit = labels.fit(y_train)
+    y_train_lables_trf = labels.transform(y_train)
+    
+
+    # create the Model with syn data
+    clf = Model_used.fit(X_train_transformed, y_train_lables_trf)#
+    
+    calibrated_svc = CalibratedClassifierCV(base_estimator=clf,cv="prefit") 
+    
+    calibrated_svc.fit(X_train_transformed,y_train_lables_trf)
+     
+    predicted = calibrated_svc.predict(X_test_transformed)
+    Average_accuracy_on_test= np.mean(predicted == labels.transform(y_test))
+
+    ## print and plot
+    y_true = labels.transform(y_test) 
+    y_pred = predicted 
+    
+    
+    
+
+         
+    # Print the confusion matrix
+    cf_matrix_3x3 = confusion_matrix(y_true, y_pred)
+         
+    # Print the precision and recall, among other metrics
+    clas_rep = classification_report(y_true, y_pred, digits=3, target_names= full_names)
+
+
+    ########### sensitivity','specificity'
+    #Sensitivity, also known as the true positive rate (TPR), is the same as recall. Hence, it measures the proportion of positive class that is correctly predicted as positive.
+    #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
+   
+    res = []
+    for l in range(0, len(s_labels_mod)):
+        prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
+                                                      np.array(y_pred)==l,
+                                                      pos_label=True,average=None)
+        res.append([full_names[l],recall[0],recall[1]])
+
+    # print info
+   
+    rep_print_min += show_report(split_test_percentage,
+                   len(df_test_only),
+                   len(df_train_only),
+                   len(df_all_dataset),
+                   labels.classes_,
+                   analyzer_type,
+                   ngram_range,
+                   Model_used ,
+                   cf_matrix_3x3,
+                   Average_accuracy_on_test, clas_rep, 
+                   pd.DataFrame(res,columns = ['class','sensitivity','specificity']))
+
+
+
+
+    ###################### plot data and confusion matrix  
+    chart_path = output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_charts.pdf"
+    chart_data(chart_path, df_all_dataset, df_train_only, df_test_only, full_names, cf_matrix_3x3)
+    
+    #from yellowbrick.classifier import class_prediction_error   
+    #visualizer = class_prediction_error(calibrated_svc, 
+    #                            X_train_transformed,y_train_lables_trf, 
+    #                            classes=full_names)
+    #visualizer.show()
+
+    
+   #################################################### 
+    # check wrong predictions
+    rep_print_min += show_wrong_prred(X_test, labels.transform(y_test), 
+                     predicted , full_names, s_labels_mod)
+
+
+
+    rep_print_min.append("")  
+    save_file(rep_print_min, output_path + "_" + uniq_model_name + "_"  + "_" +  str(balance_type) +  "_eval_report.txt" )                 
+    log("Report (pdf charts) and text saved in this path " + str(output_path)  )
+    log("--------------------------------")
+    log("")
+    
+    if savemodel.lower() == "yes": 
+        un_name =  uniq_model_name + "_ngram_" +  str(balance_type) 
+        ffolder = output_path + un_name + "_model"
+        isdir = os.path.isdir(ffolder) 
+        #print(isdir) 
+        if isdir == False:
+            os.mkdir(ffolder) 
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+        else:
+            save_model(calibrated_svc,  count_vect, tf_transformer, un_name, output_path, ffolder)
+
+            
+            
             
 def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
     balance_type = "Max"
