@@ -7,4 +7,4 @@ from .functions import save_file, count_now, read_json_originalText, get_predict
 from .functions import CodeSwitch_labels_details, Types_labels_details, Ranks_labels_details, load_modality_model
 from .functions import read_csv_file_tab, read_csv_file_comma, CountFrequency_labeles,log, load_model
 from .evaluations import show_report, chart_data, make_confusion_matrix, show_wrong_prred, log, Create_model_max, save_model, check_mislabeled, save_file, Create_model_Synthatic
-  
+from .evaluations import Create_model_min
