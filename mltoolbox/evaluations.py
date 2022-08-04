@@ -265,6 +265,7 @@ def buld_new_trainfile(xxlabel, df_all_datasetx_entry,  df_all_datasetx_label, s
 
 
 def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
+    balance_type = "Min"
     rep_print_min = []
     log("Balance: " + str(balance_type))
     log("We will use the minimum class count to balance the training file ")   
