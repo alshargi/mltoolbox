@@ -17,6 +17,14 @@ def count_now(xnum):
 
 
 
+def load_txt_file(p):
+    klist = []
+    with open(p) as fword:
+        klist = fword.read().splitlines()
+    return klist
+
+
+
 def save_file(xlist, xxpath):
     file1 = open(xxpath,"w")
     for i in xlist:
