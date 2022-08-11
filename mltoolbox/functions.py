@@ -168,7 +168,7 @@ def CountFrequency_labeles(my_list, inputfile_siz):
 
 
 def load_modality_model(): 
-    models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/Modality_syn_1_6_linsvc_latin_ngram_Synthatic_model.zip
+    models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models/modality_ngram_4_max_lsvc/Modality_syn_1_6_linsvc_latin_ngram_Synthatic_model.zip"
     return models_link
 
 
