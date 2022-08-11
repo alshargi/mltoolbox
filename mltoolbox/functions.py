@@ -69,8 +69,8 @@ def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
 
 #--------------------
 def Modality_labels_details():
-    s_name= ['s', 'sw','w']
-    l_name = ['SpokenOnly', 'SpokenAndWritten','WrittenOnly']
+    s_name= ['s', 'sw']
+    l_name = ['SpokenOnly', 'SpokenAndWritten']
     return s_name, l_name 
 
 #--------------------
