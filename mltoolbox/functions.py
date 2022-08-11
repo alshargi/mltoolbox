@@ -168,7 +168,8 @@ def CountFrequency_labeles(my_list, inputfile_siz):
 
 
 def load_modality_model(): 
-    models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models.zip"
+    #models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/models.zip"
+    models_link = "https://github.com/alshargi/mltoolbox/raw/main/mltoolbox/modality_2lab.zip"
     return models_link
 
 
