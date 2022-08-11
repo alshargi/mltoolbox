@@ -46,7 +46,7 @@ def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
         result_mod = model_mod.predict(X_val_tfidf_mod)
         
         log(str(count_id ) + '\t'  + xl_labels_mod[result_mod[0]] +  '\t' + str(new_x[0]))
-        keepAll.append("{:03d}\t\t{}\t\t{}".format(count_id,  xl_labels_mod[result_mod[0]], new_x[0]))
+        keepAll.append("{:03d}\t{}\t{}".format(count_id,  xl_labels_mod[result_mod[0]], new_x[0]))
         all_mod.append(xl_labels_mod[result_mod[0]])
     
     log("#" *30) 
