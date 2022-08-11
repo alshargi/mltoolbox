@@ -69,10 +69,9 @@ def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod):
 
 #--------------------
 def Modality_labels_details():
-    s_name= ['s', 'sw']
-    l_name = ['SpokenOnly', 'SpokenAndWritten']
+    s_name= ['sw', 'w']
+    l_name = ['SpokenAndWritten', 'WrittenOnly']
     return s_name, l_name 
-
 #--------------------
 def CodeSwitch_labels_details():
       s_name = ['no', 'yes'] 
