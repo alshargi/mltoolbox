@@ -25,6 +25,16 @@ def load_txt_file(p):
 
 
 
+    
+def load_txt_file_ISO(p):
+    all_data = []
+    with open(p, encoding = "ISO-8859-1") as fword:
+        all_data = fword.read().splitlines()
+    return all_data
+
+
+
+
 def save_file(xlist, xxpath):
     file1 = open(xxpath,"w")
     for i in xlist:
