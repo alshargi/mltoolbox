@@ -33,6 +33,15 @@ def load_txt_file_ISO(p):
     return all_data
 
 
+def load_txt_file_utf8(p):
+    all_data = []
+    with open(p, encoding="utf-8") as fword:
+        all_data = fword.read().splitlines()
+    return all_data
+
+
+
+
 
 
 def save_file(xlist, xxpath):
