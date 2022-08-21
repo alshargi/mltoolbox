@@ -10,6 +10,8 @@ import requests
 from zipfile import ZipFile
 import os
 import csv
+from deep_translator import GoogleTranslator,MyMemoryTranslator 
+
 
 def count_now(xnum):  
     for i in range(xnum):
@@ -50,7 +52,18 @@ def save_file(xlist, xxpath):
         file1.writelines("{}\n".format(i))
     file1.close()
     
- 
+
+def create_new_auterance_GoogleTranslator(fromx, toz, tx):
+    #auto, en, ar
+    translated = GoogleTranslator(source=fromx, target=toz).translate(tx)
+    return translated
+
+    
+def create_new_auterance_MyMemoryTranslator(fromx, toz, tx):
+    #auto, en, ar
+    translated = MyMemoryTranslator(source=fromx, target=toz).translate(tx)
+    return translated 
+    
 
 def get_predict(strings, model_mod, cvec_mod, tfidf_mod, xl_labels_mod): 
     count_id = 0
