@@ -7,6 +7,10 @@ from sklearn.utils import shuffle
 import pandas as pd
 import unicodedata as ud
 import matplotlib.pyplot as plt
+from mltoolbox import log
+
+training_Entries = []
+test_Entries =[]
 
 
 def untag(tagged_sentence):
@@ -155,6 +159,99 @@ def features(sentence):
         'is_sing_lett_cap':  check_single_lett_cap(sentence),
         	}
 
+
+def save_model_f(xmodel, xunq_name, xpath, xfoldename):
+    try:
+        mod_name = xfoldename + "/" +  xunq_name + "_model.sav"
+        joblib.dump(xmodel, mod_name)
+        log("Model saved")
+    except:
+        print("Error")
+        
+	
+def Create_feature_based_modality(xAlg_used,
+                    xtrain_locales, 
+                    xtest_locale, 
+                    xsplit_test_percentage,
+                    xTraining_file, 
+                    xfull_names,
+                    xshort_names,
+                    xoutput_path, xuniq_model_name, xsavemodel):
+    
+    training_Entries = []
+    test_Entries =[]
+    
+    locales_in_training_file = xtrain_locales
+    test_locale = xtest_locale 
+    cut_off_percentage = xsplit_test_percentage
+    algor_used = xAlg_used
+    #load file
+    names = ['entry', 'label', 'locales']
+    df_all_dataset = shuffle(shuffle(pd.read_csv(xTraining_file,  delimiter='\t', names=names)))    
+    #df_all_dataset.head(10)
+    print("Dataset loaded")
+    
+    for xentry, xlabel, xlocal in zip(df_all_dataset['entry'], df_all_dataset['label'], df_all_dataset['locales']):    
+        if xlocal in locales_in_training_file:
+            training_Entries.append(tuple([xentry, xlabel,  xlocal]))
+         
+        if xlocal in test_locale:
+            test_Entries.append(tuple([xentry,xlabel,  xlocal]))#
+
+
+    # cut test percentage
+
+    cutoff = int(cut_off_percentage * len(test_Entries))
+    test_Entries = test_Entries[cutoff:]
+        
+    log ("Locales in training dataset: " +  str(locales_in_training_file))
+    log ("All Entries: " +  str(len(training_Entries)))
+    log("")
+    #print ("All Entries: ", len(test_Entries))
+    cutoff_test = int(cut_off_percentage * len(test_Entries))
+    log("Test-Dataset Avaliable: " + str(test_locale)  + "\t" + str(len(test_Entries)) + " Entries") 
+    test_Entries = test_Entries[:cutoff_test]
+    log("Test-Dataset Used:" + str(test_locale) + "\t" + str(cut_off_percentage) + "% >> "  + "\t" + str(len(test_Entries)) + " Entries") 
+    log("")
+    # model
+    clf = Pipeline([('vectorizer', DictVectorizer(sparse=False)),
+	            ('classifier', algor_used)     ])
+    
+    X, y = [], []
+    X, y = transform_to_dataset(training_Entries)
+    #clf.fit(X[:2000], y[:2000])
+    clf = clf.fit(X, y)
+    log("size" +  str(len(X))  + ", " + str(len(y)))
+     
+    X_test, y_test = transform_to_dataset(test_Entries)
+    predicted = clf.predict(X_test)
+    
+    # Print the precision and recall, among other metrics
+    class_rep = classification_report(y_test, predicted, digits=3)
+    
+    log(class_rep)
+    # accuracy
+    Average_accuracy_on_test = clf.score(X_test, y_test)
+    log ("Accuracy:" + str(Average_accuracy_on_test))
+
+    ## print and plot
+    #y_true = y_test
+    #y_pred = predicted 
+
+    if xsavemodel.lower() == "yes": 
+        un_name =  uniq_model_name  
+        ffolder = output_path + un_name + "_model"
+        isdir = os.path.isdir(ffolder) 
+        #print(isdir) 
+        if isdir == False:
+            os.mkdir(ffolder) 
+            save_model_f(clf, un_name, output_path, ffolder)
+        
+        else:
+            save_model_f(clf, un_name, output_path, ffolder)
+
+
+    
 
 
 
