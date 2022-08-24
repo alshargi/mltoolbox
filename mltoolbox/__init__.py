@@ -10,3 +10,7 @@ from .functions import read_csv_file_tab, read_csv_file_comma, CountFrequency_la
 from .functions import create_new_auterance_MyMemoryTranslator, create_new_auterance_GoogleTranslator
 from .evaluations import show_report, chart_data, make_confusion_matrix, show_wrong_prred, log, Create_model_max, save_model, check_mislabeled, save_file, Create_model_Synthatic
 from .evaluations import Create_model_min
+
+from .featurebasedmodality import xxx
+
+
