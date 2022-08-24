@@ -239,16 +239,15 @@ def Create_feature_based_modality(xAlg_used,
     #y_pred = predicted 
 
     if xsavemodel.lower() == "yes": 
-        un_name =  uniq_model_name  
-        ffolder = output_path + un_name + "_model"
+        ffolder = output_path + xuniq_model_name + "_model"
         isdir = os.path.isdir(ffolder) 
         #print(isdir) 
         if isdir == False:
             os.mkdir(ffolder) 
-            save_model_f(clf, un_name, output_path, ffolder)
+            save_model_f(clf, xuniq_model_name, output_path, ffolder)
         
         else:
-            save_model_f(clf, un_name, output_path, ffolder)
+            save_model_f(clf, xuniq_model_name, output_path, ffolder)
 
 
     
