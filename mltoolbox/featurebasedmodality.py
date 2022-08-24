@@ -176,8 +176,6 @@ def Create_feature_based_modality(xAlg_used,
                     xtest_locale, 
                     xsplit_test_percentage,
                     xTraining_file, 
-                    xfull_names,
-                    xshort_names,
                     xoutput_path, xuniq_model_name, xsavemodel):
     
     training_Entries = []
