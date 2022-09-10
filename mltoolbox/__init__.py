@@ -12,8 +12,5 @@ from .evaluations import show_report, chart_data, make_confusion_matrix, show_wr
 from .evaluations import Create_model_min
 
 from .featurebasedmodality import Create_feature_based_modality
-
-from .featurebasedmodality import convert_ara_to_bw, convert_bw_to_ara
-  
-
+from .ara_functions import convert_ara_to_bw, convert_bw_to_ara
 
