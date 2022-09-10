@@ -1,11 +1,3 @@
-
-
-# -*- coding: utf-8 -*-
-
-
-# -*- coding: utf-8 -*-
-
-
 ara_letters = {u"\u0627":'A',
 u"\u0628":'b', u"\u062A":'t', u"\u062B":'v', u"\u062C":'j',
 u"\u062D":'H', u"\u062E":'x', u"\u062F":'d', u"\u0630":'*', u"\u0631":'r',
@@ -27,27 +19,28 @@ def split(word):
       
 
 
-def get_key(v, aralettersx): 
-    for key, value in aralettersx.items(): 
+def get_key(v): 
+    for key, value in ara_letters.items(): 
          if v == value: 
              return key 
 
     return ""
  
 
-def get_val(k, aralettersx): 
-    for key, value in aralettersx.items(): 
+def get_val(k): 
+    for key, value in ara_letters.items(): 
          if k == key: 
              return value 
 
     return ""
-
+ 
+   
 
 def convert_bw_to_ara(xsent):
     res = ''
     splstr = split(xsent)
     for x in splstr:
-        cara = get_key(x, xsent)
+        cara = get_key(x)
         if cara != '':
             res += cara
         else:
@@ -61,7 +54,7 @@ def convert_ara_to_bw(xsent):
     splstr = split(xsent)
     print(splstr)
     for x in splstr:
-        cara = get_val(x, xsent)
+        cara = get_val(x)
         if cara != '':
             res += cara
         else:
