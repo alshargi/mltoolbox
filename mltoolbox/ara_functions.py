@@ -27,16 +27,16 @@ def split(word):
       
 
 
-def get_key(v): 
-    for key, value in araletters.items(): 
+def get_key(v, aralettersx): 
+    for key, value in aralettersx.items(): 
          if v == value: 
              return key 
 
     return ""
  
 
-def get_val(k): 
-    for key, value in araletters.items(): 
+def get_val(k, aralettersx): 
+    for key, value in aralettersx.items(): 
          if k == key: 
              return value 
 
@@ -47,7 +47,7 @@ def convert_bw_to_ara(xsent):
     res = ''
     splstr = split(xsent)
     for x in splstr:
-        cara = get_key(x)
+        cara = get_key(x, xsent)
         if cara != '':
             res += cara
         else:
@@ -61,7 +61,7 @@ def convert_ara_to_bw(xsent):
     splstr = split(xsent)
     print(splstr)
     for x in splstr:
-        cara = get_val(x)
+        cara = get_val(x, xsent)
         if cara != '':
             res += cara
         else:
