@@ -14,3 +14,5 @@ from .evaluations import Create_model_min
 from .featurebasedmodality import Create_feature_based_modality
 from .ara_functions import convert_ara_to_bw, convert_bw_to_ara
 
+from .create_model import create_model
+
