@@ -178,7 +178,7 @@ def create_model(dfx, alg_name, split_test_percentage, balance_type, ngram_range
         X_train_trans_, y_train_trf_, X_test_transformedx, y_test_transformedx = balance_training_data_min(dfx['entry'], dfx['label'],
                                                                ngram_range, analyzer_type, split_test_percentage)
       
-        print(df_all_dataset.head())  
+        #print(dfx.head())  
         log("Running , Please wait ...") 
         # create the Model with MIN data
         clf = alg_name.fit(X_train_trans_,y_train_trf_)# 
@@ -221,7 +221,7 @@ def create_model(dfx, alg_name, split_test_percentage, balance_type, ngram_range
         labels_list = dfx.groupby('label').count()
         uniq_labels = dfx.label.unique()
          
-        print(df_all_dataset.head())  
+        print(dfx.head())  
         log("Running , Please wait ...") 
         # create the Model with MIN data
         clf = alg_name.fit(X_train_transformed,y_train_lables_trf)# 
