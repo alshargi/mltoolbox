@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+import numpy as np
+from colorama import Fore
+from colorama import Style
+
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
     
