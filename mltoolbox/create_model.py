@@ -243,14 +243,14 @@ def create_model(dfx, alg_name, split_test_percentage, balance_type, ngram_range
         for i in uniq_labels:
             uniq_labels_str.append(str(i))
 
-        
+
         clas_rep = classification_report(y_true, y_pred, digits=3, target_names= uniq_labels_str)  
         ########### sensitivity','specificity'
         #Sensitivity, also known as the true positive rate (TPR), is the same as recall. Hence, it measures the proportion of positive class that is correctly predicted as positive.
         #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
         
         res = []
-        for l in uniq_labels_str:
+        for l in range(0, len(uniq_labels_str)):
              prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
                                                            np.array(y_pred)==l,
                                                            pos_label=True,average=None)
