@@ -250,7 +250,7 @@ def create_model(dfx, alg_name, split_test_percentage, balance_type, ngram_range
         #Specificity is similar to sensitivity but focused on negative class. It measures the proportion of negative class that is correctly predicted as negative.
         
         res = []
-        for l in uniq_labels_str):
+        for l in uniq_labels_str:
              prec,recall,_,_ = precision_recall_fscore_support(np.array(y_true)==l,
                                                            np.array(y_pred)==l,
                                                            pos_label=True,average=None)
