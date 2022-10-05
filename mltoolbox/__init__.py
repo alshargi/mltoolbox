@@ -1,7 +1,7 @@
 # This is so that you can import ppack or import average from ppack
 # in stead of from ppack.functions import average
 
-
+from .classify_func import classify
 from .gtd_check_QA import check_GTD_for_CR, load_txt_file
 from .functions import load_txt_file, save_file, count_now, read_json_originalText, get_predict, Modality_labels_details
 from .functions import CodeSwitch_labels_details, Types_labels_details, Ranks_labels_details, load_modality_model, load_txt_file_ISO
@@ -15,4 +15,4 @@ from .featurebasedmodality import Create_feature_based_modality
 from .ara_functions import convert_ara_to_bw, convert_bw_to_ara
 
 from .create_model import create_model
-from .classify_func import classify
+
