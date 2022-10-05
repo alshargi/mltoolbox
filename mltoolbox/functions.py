@@ -306,19 +306,21 @@ def classify_now(input_df, key, classifiers):
             for i in input_df[key]:
               #f_res, keep_words = is_code_switch_to_eng_treebank(i.strip().lower())
               f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
-              if keep_words == []:
-                #print(f_res, i)
-                keep_result_labels.append(f_res)
-                keep_result_words.append("x")
+              keep_result_labels.append(f_res + '_' + str(keep_words))
+            
+              #if keep_words == []:
+              #  #print(f_res, i)
+              #  keep_result_labels.append(f_res)
+              #  keep_result_words.append("x")
                 
             
-              if keep_words != []:
-                #print(f_res, keep_words, i)
-                keep_result_labels.append(f_res)
-                keep_result_words.append(keep_words)
+              #if keep_words != []:
+              #  #print(f_res, keep_words, i)
+              #  keep_result_labels.append(f_res)
+              #  keep_result_words.append(keep_words)
 
         input_df['es-codeswitch'] = keep_result_labels
-        input_df['en-words'] = keep_result_words
+        #input_df['en-words'] = keep_result_words
     
     return input_df
 
