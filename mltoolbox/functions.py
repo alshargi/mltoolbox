@@ -238,6 +238,33 @@ def read_json_originalText(fx):
     return keepall
 
 import sys
+
+def is_code_switch_to_eng_lpzg(xsnt):
+  xsnt_list_o = word_tokenize(xsnt)
+  wl = []
+  f_res = ""
+  keep_words = []
+  for w in xsnt_list_o:
+    #print(w)
+    if w.lower() in all_words and w not in all_span_words:
+      wl.append("yes")
+      keep_words.append(w)
+    else:
+      wl.append("no")
+
+  if int(len(set(wl))) == 2 :
+    f_res = "code_switch"
+
+  if int(len(set(wl))) == 1 and "no" in wl:
+    f_res = "no-code_switch"
+
+  if int(len(set(wl))) == 1 and "yes" in wl:
+    f_res = "English_Script"
+
+  return f_res, keep_words
+
+
+
 def classify_now(input_df, key, classifiers):
     clas_unq_name = ['salience', 'modality', 'rank', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
 
