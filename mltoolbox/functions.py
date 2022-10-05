@@ -43,6 +43,13 @@ def load_txt_file_utf8(p):
 
 
 
+# load our tool
+def loadUnqList(p):
+    klist = []
+    with open(p) as fword:
+        klist = fword.read().splitlines()
+    return klist
+
 
 
 
