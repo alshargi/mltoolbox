@@ -16,5 +16,3 @@ from .ara_functions import convert_ara_to_bw, convert_bw_to_ara
 
 from .create_model import create_model
 from .classify_func import classify
-
-
