@@ -12,6 +12,7 @@ import os
 import csv
 import string
 from deep_translator import GoogleTranslator,MyMemoryTranslator 
+from nltk.tokenize import word_tokenize
 
 
 def count_now(xnum):  
