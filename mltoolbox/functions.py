@@ -239,7 +239,10 @@ def read_json_originalText(fx):
     return keepall
 
 import sys
-
+keep_result_labels =[]
+keep_result_words =[]
+all_span_words = []
+all_words = []
 def is_code_switch_to_eng_lpzg(xsnt):
   xsnt_list_o = word_tokenize(xsnt)
   wl = []
@@ -284,10 +287,7 @@ def classify_now(input_df, key, classifiers):
         if i.lower() == 'eng_spanish_cs':
             log("Classify >> " +  str(i) )
             log("")
-            keep_result_labels =[]
-            keep_result_words =[]
-            all_span_words = []
-            all_words = []
+        
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
               all_words.append(i.lower())
