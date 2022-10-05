@@ -239,17 +239,17 @@ def read_json_originalText(fx):
     return keepall
 
 import sys
-keep_result_labels =[]
-keep_result_words =[]
+
+
 all_span_words = []
 all_words = []
+
 def is_code_switch_to_eng_lpzg(xsnt):
   xsnt_list_o = word_tokenize(xsnt)
   wl = []
   f_res = ""
   keep_words = []
   for w in xsnt_list_o:
-    #print(w)
     if w.lower() in all_words and w not in all_span_words:
       wl.append("yes")
       keep_words.append(w)
@@ -287,6 +287,7 @@ def classify_now(input_df, key, classifiers):
         if i.lower() == 'eng_spanish_cs':
             log("Classify >> " +  str(i) )
             log("")
+           
         
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
@@ -297,30 +298,18 @@ def classify_now(input_df, key, classifiers):
             for i in span_words:
               all_span_words.append(i.lower()) 
              
-            #print(len(all_span_words))
-            #print("")
+     
             for d in string.punctuation :
               all_span_words.append(d)
             
             keep_words = ""
+            keep_result_labels =[]
             for i in input_df[key]:
-              #f_res, keep_words = is_code_switch_to_eng_treebank(i.strip().lower())
               f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
               keep_result_labels.append(f_res + '_' + str(keep_words))
             
-              #if keep_words == []:
-              #  #print(f_res, i)
-              #  keep_result_labels.append(f_res)
-              #  keep_result_words.append("x")
-                
-            
-              #if keep_words != []:
-              #  #print(f_res, keep_words, i)
-              #  keep_result_labels.append(f_res)
-              #  keep_result_words.append(keep_words)
-
+      
         input_df['es-codeswitch'] = keep_result_labels
-        #input_df['en-words'] = keep_result_words
     
     return input_df
 
