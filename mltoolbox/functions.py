@@ -10,6 +10,7 @@ import requests
 from zipfile import ZipFile
 import os
 import csv
+import string
 from deep_translator import GoogleTranslator,MyMemoryTranslator 
 
 
