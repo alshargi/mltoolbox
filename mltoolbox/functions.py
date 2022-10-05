@@ -229,4 +229,66 @@ def read_json_originalText(fx):
     f.close()
     return keepall
 
+import sys
+def classify_now(input_df, key, classifiers):
+    clas_unq_name = ['salience', 'modality', 'rank', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
 
+    if len(set(classifiers)) != len(classifiers):
+        log("Duplication in the classifier list, fix and try again")
+        sys.exit()
+
+    for c in classifiers:
+        if c.lower() not in clas_unq_name:
+            log(str(c) + " Not a correct classifer name. Please choose from these list. " + str(clas_unq_name))
+            sys.exit()
+
+    path_to_library = os.path.dirname(os.path.abspath(__file__))
+    for i in classifiers:
+        log("")
+        if i.lower() == 'eng_spanish_cs':
+            log("Classify >> " +  str(i) )
+            log("")
+            keep_result_labels =[]
+            keep_result_words =[]
+            eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
+            for i in eng_words:
+              all_words.append(i.lower())
+
+            print(len(all_words))
+            
+            ########## load our tool
+            span_words = loadUnqList(path_to_library + '/models/es_from_nltk_unq_lower.txt')
+            for i in span_words:
+              #cc = i.split("\t")
+              #all_span_words.append(cc[1].lower())
+              all_span_words.append(i.lower()) 
+             
+            print(len(all_span_words))
+            print("")
+            for d in string.punctuation :
+              all_span_words.append(d)
+            
+            keep_words = ""
+            for i in input_df[key]:
+              #f_res, keep_words = is_code_switch_to_eng_treebank(i.strip().lower())
+              f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
+              if keep_words == []:
+                print(f_res, i)
+                keep_result_labels.append(f_res)
+                keep_result_words.append("x")
+                
+            
+              if keep_words != []:
+                print(f_res, keep_words, i)
+                keep_result_labels.append(f_res)
+                keep_result_words.append(keep_words)
+
+        input_df['es-codeswitch'] = keep_result_labels
+        input_df['en-words'] = keep_result_words
+    
+    return input_df
+
+
+
+    
+    
