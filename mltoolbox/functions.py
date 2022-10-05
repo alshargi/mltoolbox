@@ -257,6 +257,8 @@ def classify_now(input_df, key, classifiers):
             log("")
             keep_result_labels =[]
             keep_result_words =[]
+            all_span_words = []
+            all_words = []
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
               all_words.append(i.lower())
@@ -266,8 +268,6 @@ def classify_now(input_df, key, classifiers):
             ########## load our tool
             span_words = loadUnqList(path_to_library + '/models/es_from_nltk_unq_lower.txt')
             for i in span_words:
-              #cc = i.split("\t")
-              #all_span_words.append(cc[1].lower())
               all_span_words.append(i.lower()) 
              
             print(len(all_span_words))
