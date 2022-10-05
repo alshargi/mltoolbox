@@ -419,7 +419,6 @@ def classifyme(input_df, key, classifiers):
 
         if i.lower() == 'eng_spanish_cs':
             log("Classify >> " +  str(i) )
-            input_df['script'] = scc_result_df
             log("")
             keep_result_labels =[]
             keep_result_words =[]
@@ -467,61 +466,6 @@ def classifyme(input_df, key, classifiers):
         input_df['es-codeswitch'] = keep_result_labels
         input_df['en-words'] = keep_result_words
     
-
-        if i.lower() == 'salience':
-            embedder = SentenceTransformer('bert-base-multilingual-uncased')
-            log("Checking >> " +  str(i) )
-            add_wiki_count = []
-            add_bert_vec = []
-            for i in input_df[key]:
-                xhit = wiki_count(i)
-                embedding_x = embedder.encode(i)
-                print(i, xhit)
-                add_wiki_count.append(xhit)
-                add_bert_vec.append(embedding_x)
-                time.sleep(5)
-            #Add to main df
-            input_df['wiki_count'] = add_wiki_count
-            input_df['bert_vec'] = add_bert_vec
-
-            print(input_df.head() )
-            print(input_df.shape)
-            print(input_df.corr())
-            print(input_df.describe())
-
-            # predict
-            x = []
-            y = []
-            for j in range(len(input_df)):
-                x.append(input_df['bert_vec'][j])
-                y.append(input_df['wiki_count'][j])
-
-            x, y = np.array(x), np.array(y)
-
-            print(x.shape)
-            print(y.shape)
-
-            model = LinearRegression().fit(x, y)
-            r_sq = model.score(x, y)
-
-            print(f"coefficient of determination: {r_sq}")
-            print(f"intercept: {model.intercept_}")
-            #print(f"coefficients: {model.coef_}")
-
-            y_pred = model.predict(x)
-            print(f"predicted response:\n{y_pred}")
-            print(y_pred)
-            result_df = input_df[key]
-            xnorm = []
-            pred_norm_sum = [float(i)/sum(y_pred) for i in y_pred]
-            pred_norm_max = [float(i)/max(y_pred) for i in y_pred]
-
-            result_df['wiki_count'] =  add_wiki_count
-            result_df['salience'] = y_pred
-            result_df['nor_sum'] = pred_norm_sum
-            result_df['nor_max'] = pred_norm_max
-            input_df = result_df
-
     return input_df
 
 
