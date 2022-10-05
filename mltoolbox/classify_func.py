@@ -364,8 +364,8 @@ def is_code_switch_to_eng_lpzg(xsnt):
 
 
 
-def classify(input_df, key, classifiers):
-    clas_unq_name = ['salience', 'modality', 'rank', 'types_gic', 'code_switch', 'script']
+def classifyme(input_df, key, classifiers):
+    clas_unq_name = ['salience', 'modality', 'rank', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
 
     if len(set(classifiers)) != len(classifiers):
         log("Duplication in the classifier list, fix and try again")
@@ -417,7 +417,7 @@ def classify(input_df, key, classifiers):
             input_df['script'] = scc_result_df
             log("")
 
-        if i.lower() == 'en_es_cs':
+        if i.lower() == 'eng_spanish_cs':
             log("Classify >> " +  str(i) )
             input_df['script'] = scc_result_df
             log("")
