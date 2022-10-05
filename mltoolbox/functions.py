@@ -291,16 +291,14 @@ def classify_now(input_df, key, classifiers):
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
               all_words.append(i.lower())
-
-            print(len(all_words))
             
             ########## load our tool
             span_words = loadUnqList(path_to_library + '/models/es_from_nltk_unq_lower.txt')
             for i in span_words:
               all_span_words.append(i.lower()) 
              
-            print(len(all_span_words))
-            print("")
+            #print(len(all_span_words))
+            #print("")
             for d in string.punctuation :
               all_span_words.append(d)
             
@@ -309,13 +307,13 @@ def classify_now(input_df, key, classifiers):
               #f_res, keep_words = is_code_switch_to_eng_treebank(i.strip().lower())
               f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
               if keep_words == []:
-                print(f_res, i)
+                #print(f_res, i)
                 keep_result_labels.append(f_res)
                 keep_result_words.append("x")
                 
             
               if keep_words != []:
-                print(f_res, keep_words, i)
+                #print(f_res, keep_words, i)
                 keep_result_labels.append(f_res)
                 keep_result_words.append(keep_words)
 
