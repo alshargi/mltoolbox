@@ -322,20 +322,11 @@ def classify_now(input_df, key, classifiers):
             for j in input_df[key]:
                 for i in j.split(" "):
                     dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])    
-		    print(dres)
 
-                fres = set(dres)
-		print(fres)
-                if 'en' in fres and 'es' in fres:
-                    rres = "code_switch"
-
-                if 'es' in fres and len(fres) == 1:
-                    rres = "no-code_switch"
-
-                if 'en' in fres and len(fres) == 1:
-                    rres = "english-script"
-            
-                input_df['codeswitch_m'] = rres
+		input_df['codeswitch_m'] = set(dres)
+		dres = []
+	
+                
             log("")
             
         if i.lower() == 'eng_spanish_cs':
