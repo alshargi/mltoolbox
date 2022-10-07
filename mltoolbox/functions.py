@@ -297,7 +297,7 @@ def features_en_es(ww):
 
 
 def classify_now(input_df, key, classifiers):
-    clas_unq_name = ['salience', 'modality', 'rank','eng_spanish_cs',  'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
+    clas_unq_name = ['salience', 'modality', 'rank','eng_spanish_cs', 'en_es_codeswitch', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
 
     if len(set(classifiers)) != len(classifiers):
         log("Duplication in the classifier list, fix and try again")
