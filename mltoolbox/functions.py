@@ -268,6 +268,33 @@ def is_code_switch_to_eng_lpzg(xsnt):
   return f_res, keep_words
 
 
+def check_spanish_sp(xw):
+    res_sp = False
+    ff = ['á', 'é', 'í', 'ó', 'ú', 'ü', 'ñ', '¿', '¡']
+    for i in xw:
+        if i in ff:
+            res_sp = True
+            break
+    return res_sp
+
+
+def features_en_es(ww):
+	return {
+    	'entry': str(ww),
+        'prefix-1': ww[:2],
+        'is_es_char': check_spanish_sp(ww),
+        'prefix-2': ww[:3],
+        'prefix-3': ww[:4],
+        'prefix-4': ww[:5],
+        'prefix-5': ww[:6],  
+        'suffix-1': ww[-1],
+        'suffix-2': ww[-3:],
+        'suffix-3': ww[-4:],
+        'suffix-4': ww[-5:],
+        'suffix-5': ww[-6:]
+        	}
+
+
 
 def classify_now(input_df, key, classifiers):
     clas_unq_name = ['salience', 'modality', 'rank', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
@@ -284,6 +311,31 @@ def classify_now(input_df, key, classifiers):
     path_to_library = os.path.dirname(os.path.abspath(__file__))
     for i in classifiers:
         log("")
+        
+        if i.lower() == 'en_es_codeswitch':
+            log("Classify >> " +  (str(i)))
+            xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
+            log("Models , loaded ")
+            dres = []
+            
+            rres = "no-codeswitch"
+            for j in input_df[key]:
+                for i in j.split(" "):
+                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])
+
+                fres = set(dres)
+                if 'en' in fres and 'es' in fres:
+                    rres = "code_switch"
+
+                if 'es' in fres and len(fres) == 1:
+                    rres = "no-code_switch"
+
+                if 'en' in fres and len(fres) == 1:
+                    rres = "english-script"
+            
+                input_df['codeswitch_m'] = rres
+            log("")
+            
         if i.lower() == 'eng_spanish_cs':
             log("Classify >> " +  str(i) )
             log("")
