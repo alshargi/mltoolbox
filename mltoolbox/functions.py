@@ -318,10 +318,11 @@ def classify_now(input_df, key, classifiers):
             log("Models , loaded ")
             dres = []
             
-            rres = "no-codeswitch"
+            rres = ""
             for j in input_df[key]:
                 for i in j.split(" "):
-                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])
+                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])    
+		    print(dres)
 
                 fres = set(dres)
 		print(fres)
