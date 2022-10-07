@@ -324,6 +324,7 @@ def classify_now(input_df, key, classifiers):
                     dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])
 
                 fres = set(dres)
+		print(fres)
                 if 'en' in fres and 'es' in fres:
                     rres = "code_switch"
 
