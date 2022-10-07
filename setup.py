@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='mltoolbox',
-    version='0.0.118',
+    version='0.0.119',
     author='Faisal Alshargi',
     author_email='falsharg@amazon.com',
     description='Testing installation of Package',
@@ -17,6 +17,6 @@ setuptools.setup(
     },
     license='MIT',
     packages=['mltoolbox'],
-    package_data={'mltoolbox': ['models/*.txt']}, 
+    package_data={'mltoolbox': ['models/*.txt', ['models/*.sav']]}, 
     install_requires=['requests'],
 )
