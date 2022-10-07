@@ -17,6 +17,6 @@ setuptools.setup(
     },
     license='MIT',
     packages=['mltoolbox'],
-    package_data={'mltoolbox': ['models/*.txt', ['models/*.sav']]}, 
+    package_data={'mltoolbox': ['models/*.txt', 'models/*.sav']}, 
     install_requires=['requests'],
 )
