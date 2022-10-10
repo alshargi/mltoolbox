@@ -310,50 +310,43 @@ def classify_now(input_df, key, classifiers):
 
     path_to_library = os.path.dirname(os.path.abspath(__file__))
     for i in classifiers:
-        log("")
-	if i.lower() == 'en_es_codeswitch':
+        if i.lower() == 'en_es_codeswitch':
             log("Classify >> " +  (str(i)))
-	    keep_all_lab = []
+            snt_result = []
+            keep_all_lab = []
             xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
             log("Models , loaded ")
-	    dres = []
-            rres = ""
-	    for j in input_df[key]:
-	        for i in j.split(" "):
-		    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
-	        keep_all_lab.append(set(dres))
-	        dres = []
-
-	    input_df['codeswitch_m'] = keep_all_lab
-
+            for j in input_df[key]:
+                for ix in j.split(" "):
+                    snt_result.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
+                keep_all_lab.append(set(snt_result))
+                snt_result = []
+             
+            input_df['cs_model'] = keep_all_lab
+        
         if i.lower() == 'en_es_wordmatch':
             log("Classify >> " +  str(i) )
             log("") 
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
-              all_words.append(i.lower())
-            
-            ########## load our tool
+                all_words.append(i.lower())
+                ########## load our tool
             span_words = loadUnqList(path_to_library + '/models/es_from_nltk_unq_lower.txt')
             for i in span_words:
-              all_span_words.append(i.lower()) 
-             
-     
+                all_span_words.append(i.lower()) 
+                     
             for d in string.punctuation :
-              all_span_words.append(d)
-            
+                all_span_words.append(d)
+                    
             keep_words = ""
             keep_result_labels =[]
             for i in input_df[key]:
-              f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
-              keep_result_labels.append(f_res + '_' + str(keep_words))
+                f_res, keep_words = is_code_switch_to_eng_lpzg(i.strip().lower())
+                keep_result_labels.append(f_res + '_' + str(keep_words))
+                    
+              
+            input_df['cs_match'] = keep_result_labels
             
-      
-            input_df['es-codeswitch'] = keep_result_labels
-    
     return input_df
-
-
-
-    
+	
     
