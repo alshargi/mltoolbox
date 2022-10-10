@@ -440,7 +440,7 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
             
             
             
-def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
+def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, output_path,uniq_model_name, savemodel ):    
     balance_type = "Max"
     rep_print = []
     names = ['entry', 'label']
@@ -470,6 +470,9 @@ def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
+    s_labels_mod = labels.classes_
+    full_names = labels.classes_
+    
     
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
