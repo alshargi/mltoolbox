@@ -87,12 +87,12 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     count_vect = CountVectorizer(ngram_range= ngram_range,  lowercase=False, analyzer=analyzer_type)      
 
     #train transform
-    X_train_counts = count_vect.fit_transform(X_train)
+    X_train_counts = count_vect.fit_transform(X_train.values.astype('U'))
     tf_transformer = TfidfTransformer().fit(X_train_counts)
     X_train_transformed = tf_transformer.transform(X_train_counts)
         
     # test transform
-    X_test_counts = count_vect.transform(X_test)
+    X_test_counts = count_vect.transform(X_test.values.astype('U'))
     X_test_transformed = tf_transformer.transform(X_test_counts)
         
     labels = LabelEncoder()     
@@ -335,12 +335,12 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
     #count_vect = TfidfVectorizer(sublinear_tf=True, min_df=1, norm='l2', encoding='latin-1', ngram_range=(1, 7))
 
     #train transform
-    X_train_counts = count_vect.fit_transform(X_train)
+    X_train_counts = count_vect.fit_transform(X_train.values.astype('U'))
     tf_transformer = TfidfTransformer().fit(X_train_counts)
     X_train_transformed = tf_transformer.transform(X_train_counts)
     
     # test transform
-    X_test_counts = count_vect.transform(X_test)
+    X_test_counts = count_vect.transform(X_test.values.astype('U'))
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
@@ -461,12 +461,12 @@ def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_
     count_vect = CountVectorizer(ngram_range= ngram_range,  lowercase=False, analyzer=analyzer_type)      
     
     #train transform
-    X_train_counts = count_vect.fit_transform(X_train)
+    X_train_counts = count_vect.fit_transform(X_train.values.astype('U'))
     tf_transformer = TfidfTransformer().fit(X_train_counts)
     X_train_transformed = tf_transformer.transform(X_train_counts)
     
     # test transform
-    X_test_counts = count_vect.transform(X_test)
+    X_test_counts = count_vect.transform(X_test.values.astype('U'))
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
