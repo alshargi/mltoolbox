@@ -311,30 +311,24 @@ def classify_now(input_df, key, classifiers):
     path_to_library = os.path.dirname(os.path.abspath(__file__))
     for i in classifiers:
         log("")
-        
-        if i.lower() == 'en_es_codeswitch':
-		log("") 
-		if i.lower() == 'en_es_codeswitch':
-		    log("Classify >> " +  (str(i)))
-			keep_all_lab = []
-		    xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
-		    log("Models , loaded ")
-		    dres = []
-		    rres = ""
-		    for j in input_df[key]:
-			for i in j.split(" "):
-			    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
-				keep_all_lab.append(set(dres))
-				dres = []
+	if i.lower() == 'en_es_codeswitch':
+            log("Classify >> " +  (str(i)))
+	    keep_all_lab = []
+            xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
+            log("Models , loaded ")
+	    dres = []
+            rres = ""
+	    for j in input_df[key]:
+	        for i in j.split(" "):
+		    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
+	        keep_all_lab.append(set(dres))
+	        dres = []
 
-			input_df['codeswitch_m'] = keep_all_lab
-		    log("")
+	    input_df['codeswitch_m'] = keep_all_lab
 
         if i.lower() == 'en_es_wordmatch':
             log("Classify >> " +  str(i) )
-            log("")
-           
-        
+            log("") 
             eng_words = loadUnqList(path_to_library + '/models/en_from_nltk_unq_lower_rmv.txt')
             for i in eng_words:
               all_words.append(i.lower())
