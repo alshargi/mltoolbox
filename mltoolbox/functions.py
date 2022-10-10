@@ -313,23 +313,23 @@ def classify_now(input_df, key, classifiers):
         log("")
         
         if i.lower() == 'en_es_codeswitch':
-            log("Classify >> " +  (str(i)))
-	    keep_all_lab = []
-            xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
-            log("Models , loaded ")
-            dres = []
-            rres = ""
-	   
-            for j in input_df[key]:
-                for i in j.split(" "):
-                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
-		keep_all_lab.append(set(dres))
-		dres = []
+		log("") 
+		if i.lower() == 'en_es_codeswitch':
+		    log("Classify >> " +  (str(i)))
+			keep_all_lab = []
+		    xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
+		    log("Models , loaded ")
+		    dres = []
+		    rres = ""
+		    for j in input_df[key]:
+			for i in j.split(" "):
+			    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
+				keep_all_lab.append(set(dres))
+				dres = []
 
-	    input_df['codeswitch_m'] = keep_all_lab
-	   
-            log("")
-            
+			input_df['codeswitch_m'] = keep_all_lab
+		    log("")
+
         if i.lower() == 'en_es_wordmatch':
             log("Classify >> " +  str(i) )
             log("")
