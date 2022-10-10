@@ -297,7 +297,7 @@ def features_en_es(ww):
 
 
 def classify_now(input_df, key, classifiers):
-    clas_unq_name = ['salience', 'modality', 'rank','eng_spanish_cs', 'en_es_codeswitch', 'types_gic', 'code_switch', 'script', 'eng_spanish_cs']
+    clas_unq_name = ['salience', 'modality', 'rank','en_es_wordmatch', 'en_es_codeswitch', 'types_gic', 'code_switch', 'script']
 
     if len(set(classifiers)) != len(classifiers):
         log("Duplication in the classifier list, fix and try again")
@@ -319,17 +319,18 @@ def classify_now(input_df, key, classifiers):
             dres = []
             
             rres = ""
+	    keep_all_lab = []
             for j in input_df[key]:
                 for i in j.split(" "):
-                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])    
-
-		input_df['codeswitch_m'] = set(dres)
+                    dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
+		keep_all_lab.append(set(dres))
 		dres = []
-	
-                
+
+	    input_df['codeswitch_m'] = keep_all_lab
+	   
             log("")
             
-        if i.lower() == 'eng_spanish_cs':
+        if i.lower() == 'en_es_wordmatch':
             log("Classify >> " +  str(i) )
             log("")
            
