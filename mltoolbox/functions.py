@@ -295,6 +295,17 @@ def features_en_es(ww):
         	}
 
 
+def check_uink_lbl(xllst):
+    rres = "no-codeswitch"
+    if 'en' in xllst and 'es' in xllst:
+        rres = "code_switch"    
+    if 'es' in xllst and len(xllst) == 1:
+        rres = "no-code_switch"
+    if 'en' in xllst and len(xllst) == 1:
+        rres = "english-script"
+    return rres
+
+
 
 def classify_now(input_df, key, classifiers):
     clas_unq_name = ['salience', 'modality', 'rank','en_es_wordmatch', 'en_es_codeswitch', 'types_gic', 'code_switch', 'script']
@@ -319,7 +330,7 @@ def classify_now(input_df, key, classifiers):
             for j in input_df[key]:
                 for ix in j.split(" "):
                     snt_result.append(xloaded_en_es_model.predict(features_en_es(ix))[0])  
-                keep_all_lab.append(snt_result)
+                keep_all_lab.append(check_uink_lbl(set(snt_result)))
                 snt_result = []
              
             input_df['cs_model'] = keep_all_lab
