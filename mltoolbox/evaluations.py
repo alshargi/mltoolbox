@@ -96,8 +96,8 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     X_test_transformed = tf_transformer.transform(X_test_counts)
         
     labels = LabelEncoder()   
-    log(labels.classes_)
 
+    
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
         
@@ -125,7 +125,6 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     # Print the confusion matrix
     y_true = labels.transform(y_test) 
     y_pred = predicted 
-        
     cf_matrix_3x3 = confusion_matrix(y_true, y_pred)
         
     # Print the precision and recall, among other metrics
@@ -266,7 +265,7 @@ def buld_new_trainfile(xxlabel, df_all_datasetx_entry,  df_all_datasetx_label, s
 
 
 
-def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names,output_path,uniq_model_name, savemodel ):    
+def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names, output_path,uniq_model_name, savemodel ):    
     balance_type = "Min"
     rep_print_min = []
     log("Balance: " + str(balance_type))
@@ -333,8 +332,8 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
-    log(labels.classes_)
 
+    
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
     
@@ -460,7 +459,7 @@ def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
-    log(labels.classes_)
+    print(labels.classes_)
     
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
