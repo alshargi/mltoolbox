@@ -471,6 +471,8 @@ def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
+    print("Dataset Labels: ", labels.classes_)
+
     
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
