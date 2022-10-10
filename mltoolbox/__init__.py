@@ -15,5 +15,9 @@ from .featurebasedmodality import Create_feature_based_modality
 from .ara_functions import convert_ara_to_bw, convert_bw_to_ara
 
 from .create_model import create_model
-from .evaluations Create_model_Synthatic, Create_model_min, Create_model_max
+
+from .evaluations import show_report, chart_data, make_confusion_matrix, show_wrong_prred, log, Create_model_max, save_model
+from .evaluations import check_mislabeled, save_file, Create_model_Synthatic
+from .evaluations import Create_model_min
+
 
