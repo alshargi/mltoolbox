@@ -95,7 +95,9 @@ def Create_model_Synthatic(Model_used, Training_file, delimiter,ngram_range, ana
     X_test_counts = count_vect.transform(X_test.values.astype('U'))
     X_test_transformed = tf_transformer.transform(X_test_counts)
         
-    labels = LabelEncoder()     
+    labels = LabelEncoder()   
+    log(labels.classes_)
+
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
         
@@ -306,19 +308,6 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
     print(balance_alldata.head())
     df_all_dataset = balance_alldata
     
-    #sys.exit()
-    
-    #####  check_mislabeled
-    #log("") 
-    #print_to_file.append("")
-    #print_to_file += check_mislabeled(df_all_dataset["label"], s_labels_mod)
-
-     #sublinear_df is set to True to use a logarithmic form for frequency.
-      # min_df is the minimum numbers of documents a word must be present in to be kept.
-     # norm is set to l2, to ensure all our feature vectors have a euclidian norm of 1.
-    # ngram_range is set to (1, 2) to indicate that we want to consider both unigrams and bigrams.
-      # stop_words is set to "english" to remove all common pronouns ("a", "the", ...) to reduce the number of noisy features.
-    
 
 
     # split Data 
@@ -344,7 +333,8 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
-    
+    log(labels.classes_)
+
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
     
@@ -440,7 +430,7 @@ def Create_model_min(Model_used, Training_file, delimiter,ngram_range, analyzer_
             
             
             
-def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, output_path,uniq_model_name, savemodel ):    
+def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_type,  split_test_percentage, s_labels_mod, full_names, output_path,uniq_model_name, savemodel ):    
     balance_type = "Max"
     rep_print = []
     names = ['entry', 'label']
@@ -470,9 +460,7 @@ def Create_model_max(Model_used, Training_file, delimiter,ngram_range, analyzer_
     X_test_transformed = tf_transformer.transform(X_test_counts)
     
     labels = LabelEncoder()
-    s_labels_mod = labels.classes_
-    full_names = labels.classes_
-    
+    log(labels.classes_)
     
     y_train_labels_fit = labels.fit(y_train)
     y_train_lables_trf = labels.transform(y_train)
