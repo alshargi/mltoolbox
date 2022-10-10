@@ -314,12 +314,12 @@ def classify_now(input_df, key, classifiers):
         
         if i.lower() == 'en_es_codeswitch':
             log("Classify >> " +  (str(i)))
+	    keep_all_lab = []
             xloaded_en_es_model = joblib.load(path_to_library + '/models/En_ES_codeswitch_model_2_model.sav')
             log("Models , loaded ")
             dres = []
-            
             rres = ""
-	    keep_all_lab = []
+	   
             for j in input_df[key]:
                 for i in j.split(" "):
                     dres.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
