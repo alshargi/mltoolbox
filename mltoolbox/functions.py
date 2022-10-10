@@ -319,7 +319,7 @@ def classify_now(input_df, key, classifiers):
             for j in input_df[key]:
                 for ix in j.split(" "):
                     snt_result.append(xloaded_en_es_model.predict(features_en_es(i))[0])  
-                keep_all_lab.append(set(snt_result))
+                keep_all_lab.append(snt_result)
                 snt_result = []
              
             input_df['cs_model'] = keep_all_lab
