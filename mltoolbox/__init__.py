@@ -20,4 +20,6 @@ from .evaluations import show_report, chart_data, make_confusion_matrix, show_wr
 from .evaluations import check_mislabeled, save_file, Create_model_Synthatic
 from .evaluations import Create_model_min
 
+from .LocAutoTask import CreateTaskFiles 
+
 
